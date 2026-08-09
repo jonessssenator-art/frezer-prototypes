@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Фрезер — здесь ставят события</title>
+<meta name="description" content="Дом культуры завода «Фрезер» в Москве: 1575 м² под событие любого масштаба, до 1000 гостей, потолки 10 метров, своя кухня.">
+<meta name="theme-color" content="#FBF3DC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="curtain" aria-hidden="true"><span></span><span></span></div>
+
+<!-- Красная нить: тянется через всю страницу и дорисовывается со скроллом -->
+<svg class="thread" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 1000">
+  <!-- Нить держится ближе к полям: заходит в текстовую колонку только на
+       переходах между секциями, чтобы не резать строки -->
+  <path id="thread-path" d="M 58 0
+    C 78 40, 92 70, 90 118
+    C 88 168, 8 176, 6 232
+    C 4 288, 94 296, 93 352
+    C 92 408, 6 414, 5 470
+    C 4 526, 95 532, 94 588
+    C 93 644, 7 650, 6 706
+    C 5 762, 93 768, 92 824
+    C 91 876, 12 882, 14 930
+    C 16 966, 40 984, 50 1000" />
+</svg>
+
+<header class="bar">
+  <a class="brand" href="#top" aria-label="Фрезер, наверх">
+    <img src="../shared/brand/logo-red.svg" alt="Фрезер" width="150" height="52">
+  </a>
+  <nav aria-label="Разделы">
+    <a href="#storona-a">Сторона А</a>
+    <a href="#storona-b">Сторона Б</a>
+    <a href="#mesto">Место</a>
+  </nav>
+  <a class="btn btn-solid" href="#zayavka"><span>Поставить дату</span><i aria-hidden="true">→</i></a>
+  <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Меню">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <a href="#storona-a">Сторона А</a>
+  <a href="#storona-b">Сторона Б</a>
+  <a href="#mesto">Место</a>
+  <a href="#zayavka">Поставить дату</a>
+</div>
+
+<main id="top">
+
+  <!-- ГЕРОЙ: видео-приветствие, основной текст поверх него -->
+  <section class="hero">
+    <p class="kicker reveal">Москва · ул. 2-я Фрезерная, 3 <b>·</b> Дом культуры завода «Фрезер»</p>
+
+    <div class="stage reveal">
+      <video class="stage-video" autoplay muted loop playsinline
+             poster="../shared/video/frezer-poster.jpg"
+             aria-label="Полёт от фасада до зала: двенадцать секунд без звука">
+        <source src="../shared/video/frezer-hero.webm" type="video/webm">
+        <source src="../shared/video/frezer-hero.mp4" type="video/mp4">
+      </video>
+      <div class="stage-scrim" aria-hidden="true"></div>
+      <div class="stage-copy">
+        <h1>Здесь <em>ставят</em><br>события</h1>
+        <p>Отдельно стоящее здание с историей и 1575 м² внутри: зал с десятиметровым
+           потолком, велком-зона на пятьсот с лишним метров и своя кухня.</p>
+      </div>
+      <span class="stage-tag" aria-hidden="true">12 секунд · без звука</span>
+    </div>
+
+    <img class="fig fig-rupor" src="../shared/brand/rupor-red.svg" alt="" width="118" height="118">
+
+    <div class="hero-actions reveal">
+      <a class="btn btn-solid" href="#zayavka"><span>Поставить дату</span><i aria-hidden="true">→</i></a>
+      <a class="btn btn-line" href="#storona-a"><span>Что внутри</span><i aria-hidden="true">↓</i></a>
+    </div>
+  </section>
+
+  <!-- БЕГУЩАЯ СТРОКА -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-row">
+      <span>1575 м² внутри ✳ до 1000 гостей ✳ потолки 10 метров ✳ своя кухня ✳ без ограничений по шуму ✳ заезд автомобиля в зал ✳ гардероб на 1000 мест ✳ 8 экранов ✳</span>
+      <span>1575 м² внутри ✳ до 1000 гостей ✳ потолки 10 метров ✳ своя кухня ✳ без ограничений по шуму ✳ заезд автомобиля в зал ✳ гардероб на 1000 мест ✳ 8 экранов ✳</span>
+    </div>
+  </div>
+
+  <!-- СТОРОНА А: пространство -->
+  <section class="side" id="storona-a">
+    <div class="side-head reveal">
+      <span class="side-mark">Сторона А</span>
+      <h2>Пять зон,<br>один <em>сценарий</em></h2>
+      <p>Здание не переделывается под формат — оно уже вмещает и банкет на тысячу человек,
+         и концерт с полным райдером. Меняется только то, какая зона становится главной.</p>
+    </div>
+
+    <div class="side-body">
+
+    <!-- Пластинка: крутится сама и подкручивается скроллом -->
+    <div class="deck reveal">
+      <div class="disc" id="hero-disc">
+        <div class="grooves" aria-hidden="true"></div>
+        <div class="sheen" aria-hidden="true"></div>
+        <div class="label">
+          <img src="../shared/brand/logo-sand-plain.svg" alt="" width="120" height="42" aria-hidden="true">
+          <span class="spindle" aria-hidden="true"></span>
+        </div>
+      </div>
+      <p class="deck-note">сторона А<br><b>пространство</b></p>
+    </div>
+
+    <ol class="tracks">
+      <li class="track reveal">
+        <span class="num">01</span>
+        <span class="name">Основной зал</span>
+        <span class="about">Сцена в торце, пять экранов, потолок в десять метров</span>
+        <span class="size"><b data-count="633">0</b> м²</span>
+      </li>
+      <li class="track reveal">
+        <span class="num">02</span>
+        <span class="name">Велком-зона</span>
+        <span class="about">Встреча гостей и фуршет, три экрана, гардероб на тысячу</span>
+        <span class="size"><b data-count="535">0</b> м²</span>
+      </li>
+      <li class="track reveal">
+        <span class="num">03</span>
+        <span class="name">Второй этаж</span>
+        <span class="about">Внутри — отдельная VIP-ложа на 300 м² с видом на зал</span>
+        <span class="size"><b data-count="407">0</b> м²</span>
+      </li>
+      <li class="track reveal">
+        <span class="num">04</span>
+        <span class="name">Сцена</span>
+        <span class="about">Четыре гримёрные рядом, за кулисами</span>
+        <span class="size"><b data-count="55">0</b> м²</span>
+      </li>
+      <li class="track reveal">
+        <span class="num">05</span>
+        <span class="name">Улица</span>
+        <span class="about">Своя территория: церемония, фуршет, парковка на 20 мест</span>
+        <span class="size"><b data-count="1500">0</b> м²</span>
+      </li>
+    </ol>
+
+    </div>
+
+    <img class="fig fig-zigzag" src="../shared/brand/zigzag-red.svg" alt="" width="200" height="70">
+  </section>
+
+  <!-- СИНЯЯ СЕКЦИЯ-КОЛЛАЖ -->
+  <section class="collage">
+    <div class="collage-shapes" aria-hidden="true">
+      <img class="c1" src="../shared/brand/rupor-red.svg" alt="" width="360" height="360">
+      <img class="c2" src="../shared/brand/cross-sand.svg" alt="" width="200" height="200">
+      <img class="c3" src="../shared/brand/spiral-black.svg" alt="" width="240" height="240">
+      <img class="c4" src="../shared/brand/factory-sand.svg" alt="" width="220" height="150">
+    </div>
+    <div class="collage-copy reveal">
+      <h2>Не лофт.<br><em>Дом культуры.</em></h2>
+      <p>Здание строили как Дом культуры завода «Фрезер» — место, куда после смены
+         приходили всем районом. Оно и сегодня стоит отдельно: свой двор, свой кирпичный
+         фасад, своя вывеска. Такое не спутать с типовой коробкой.</p>
+      <p>Мы сохранили масштаб и добавили то, чего требует современное событие:
+         экраны, сцену, гримёрные, кухню полного цикла. Дом культуры остался домом культуры.
+         Просто у него сменился репертуар.</p>
+    </div>
+  </section>
+
+  <!-- СТОРОНА Б: форматы как пластинки с поворотным сектором -->
+  <section class="side" id="storona-b">
+    <div class="side-head reveal">
+      <span class="side-mark">Сторона Б</span>
+      <h2>Шесть форматов,<br>шесть <em>разных вечеров</em></h2>
+      <p>Наведите на пластинку — сектор повернётся, как на подарочном сертификате,
+         и покажет, что за ним.</p>
+    </div>
+
+    <div class="records">
+      <article class="record reveal" tabindex="0">
+        <div class="rec-disc">
+          <img src="../shared/img/hall-wide.jpg" alt="Банкетная рассадка в основном зале">
+          <span class="wedge"></span>
+          <span class="hole"></span>
+        </div>
+        <h3>Банкет</h3>
+        <p>Посадка в зале 633 м², кухня полного цикла на площадке</p>
+      </article>
+      <article class="record reveal" tabindex="0">
+        <div class="rec-disc">
+          <img src="../shared/img/hall-tables.jpg" alt="Зал, накрытый под конференцию">
+          <span class="wedge"></span>
+          <span class="hole"></span>
+        </div>
+        <h3>Конференция</h3>
+        <p>Восемь экранов, сцена 55 м², велком-зона под регистрацию</p>
+      </article>
+      <article class="record reveal" tabindex="0">
+        <div class="rec-disc">
+          <img src="../shared/img/hall-guests.jpg" alt="Полный зал гостей на концерте">
+          <span class="wedge"></span>
+          <span class="hole"></span>
+        </div>
+        <h3>Концерт</h3>
+        <p>Без ограничений по шуму, четыре гримёрные, потолки 10 метров</p>
+      </article>
+      <article class="record reveal" tabindex="0">
+        <div class="rec-disc">
+          <img src="../shared/img/table-setting.jpg" alt="Сервировка стола с белыми розами">
+          <span class="wedge"></span>
+          <span class="hole"></span>
+        </div>
+        <h3>Свадьба</h3>
+        <p>Двор под выездную часть, VIP-ложа 300 м² для своих</p>
+      </article>
+      <article class="record reveal" tabindex="0">
+        <div class="rec-disc">
+          <img src="../shared/img/hall-full.jpg" alt="Корпоратив: зал с гостями и сценой">
+          <span class="wedge"></span>
+          <span class="hole"></span>
+        </div>
+        <h3>Корпоратив</h3>
+        <p>Заезд автомобиля прямо в зал, гардероб на 1000 мест</p>
+      </article>
+      <article class="record reveal" tabindex="0">
+        <div class="rec-disc">
+          <img src="../shared/img/candles.jpg" alt="Свечи в стеклянных подсвечниках">
+          <span class="wedge"></span>
+          <span class="hole"></span>
+        </div>
+        <h3>Частное событие</h3>
+        <p>Второй этаж 407 м² как закрытая площадка внутри здания</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- РУКОПИСНАЯ ФРАЗА, КОТОРАЯ ПИШЕТСЯ -->
+  <section class="written">
+    <div class="pen-line">
+      <span class="pen-text">поставьте своё событие на большой сцене</span>
+      <span class="pen-tip" aria-hidden="true"></span>
+    </div>
+    <img class="fig fig-flourish" src="../shared/brand/flourish-red.svg" alt="" width="260" height="200">
+  </section>
+
+  <!-- МЕСТО -->
+  <section class="side place" id="mesto">
+    <div class="side-head reveal">
+      <span class="side-mark">Место</span>
+      <h2>Здание видно<br><em>с улицы</em></h2>
+    </div>
+    <figure class="place-photo reveal">
+      <img src="../shared/img/facade-sign.jpg" alt="Кирпичный фасад с красной вывеской «Фрезер» на закате" loading="lazy">
+      <figcaption>Красный кирпич, барельеф и вывеска над навесом — ориентир виден с дороги</figcaption>
+    </figure>
+    <div class="place-facts reveal">
+      <div><b>Адрес</b><span>Москва, ул. 2-я Фрезерная, 3</span></div>
+      <div><b>Парковка</b><span>Бесплатная, 20 мест на своей территории</span></div>
+      <div><b>Заезд</b><span>Отдельный подъезд для техники и декораций</span></div>
+      <div><b>Просмотр</b><span>По записи — согласуем удобное время</span></div>
+    </div>
+  </section>
+
+  <!-- ЧЕСТНЫЙ БЛОК ПРО ОТЗЫВЫ -->
+  <section class="honest reveal">
+    <img src="../shared/brand/vinyl-red.svg" alt="" width="90" height="90" aria-hidden="true">
+    <div>
+      <h2>Отзывов пока нет</h2>
+      <p>Площадка ещё не открылась — первых гостей мы только ждём, а придумывать
+         чужие впечатления не станем. Как пройдут первые события, отзывы появятся
+         в карточке «Фрезера» на Яндекс.Картах: их пишут гости, а не мы.</p>
+    </div>
+  </section>
+
+  <!-- ЗАЯВКА -->
+  <section class="cta" id="zayavka">
+    <div class="cta-inner">
+      <h2 class="reveal">Поставим<br><em>вашу дату</em></h2>
+      <p class="reveal">Напишите, что планируете и на сколько гостей.
+         Ответим, свободна ли дата, и позовём посмотреть зал вживую.</p>
+      <form class="form reveal" novalidate>
+        <label><span>Как вас зовут</span><input type="text" name="name" required autocomplete="name" placeholder="Имя"></label>
+        <label><span>Телефон или ник в Telegram</span><input type="text" name="contact" required autocomplete="tel" placeholder="+7 или @nick"></label>
+        <label class="wide"><span>Что планируете</span><input type="text" name="about" placeholder="Формат, примерная дата, сколько гостей"></label>
+        <button class="btn btn-solid" type="submit"><span>Отправить</span><i aria-hidden="true">→</i></button>
+        <p class="form-note">Заявка уходит в Telegram площадки. Цены обсуждаем лично, под задачу.</p>
+      </form>
+      <div class="form-done" hidden role="status">
+        <b>Заявка отправлена</b>
+        <p>Мы вернёмся с ответом по дате. Спасибо!</p>
+        <button class="btn btn-line" type="button" data-reset><span>Заполнить снова</span><i aria-hidden="true">↺</i></button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <img src="../shared/brand/logo-sand.svg" alt="Фрезер" width="170" height="58">
+  <div class="foot-cols">
+    <div><b>Адрес</b><span>Москва, ул. 2-я Фрезерная, 3</span></div>
+    <div><b>Заявки</b><a href="#zayavka" data-tg>Telegram</a></div>
+    <div><b>Просмотр</b><span>По записи</span></div>
+  </div>
+  <p class="foot-note">Дом культуры завода «Фрезер» · пространство для мероприятий</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

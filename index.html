@@ -1,0 +1,146 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Фрезер · три прототипа сайта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF3DC; --sand: #E2D3AF; --red: #C62827;
+    --blue: #6A99BA; --ink: #1F1F1F;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink); margin: 0;
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    padding: clamp(28px, 5vw, 72px);
+  }
+  header { max-width: 900px; margin-bottom: clamp(40px, 6vw, 80px); }
+  .eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--red); margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(40px, 7vw, 84px); font-weight: 800;
+    letter-spacing: -.05em; line-height: .95; margin: 0 0 24px;
+    text-transform: uppercase;
+  }
+  h1 em {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic; font-weight: 400; text-transform: none;
+    letter-spacing: -.03em;
+  }
+  header p { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.45; margin: 0; max-width: 62ch; }
+  .grid { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .card {
+    background: #fff; border-radius: 20px; overflow: hidden;
+    text-decoration: none; color: inherit; display: flex; flex-direction: column;
+    border: 1px solid rgba(31, 31, 31, .1);
+    transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(31, 31, 31, .14); }
+  .card:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }
+  .swatch { height: 132px; display: flex; }
+  .swatch span { flex: 1; }
+  .body { padding: 26px 26px 30px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .num { font-size: 11px; font-weight: 700; letter-spacing: .16em; opacity: .45; }
+  h2 { font-size: 30px; font-weight: 800; letter-spacing: -.03em; margin: 0; text-transform: uppercase; }
+  .desc { font-size: 15px; line-height: 1.5; margin: 0; opacity: .8; flex: 1; }
+  .pages { font-size: 12px; letter-spacing: .04em; opacity: .55; }
+  .go {
+    display: inline-flex; align-items: center; gap: 9px; align-self: flex-start;
+    font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--red); margin-top: 6px;
+  }
+  .go i { font-style: normal; transition: transform .3s cubic-bezier(.2, .8, .2, 1); }
+  .card:hover .go i { transform: translate(4px, -4px); }
+  footer { margin-top: clamp(40px, 6vw, 76px); font-size: 13px; opacity: .6; max-width: 70ch; line-height: 1.6; }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: .01ms !important; }
+    .card:hover { transform: none; }
+  }
+</style>
+
+<header>
+  <div class="eyebrow">Фрезер · август 2026</div>
+  <h1>Три прототипа <em>одного сайта</em></h1>
+  <p>Одна площадка, одни факты и один фирменный стиль — но три разных характера подачи.
+     В каждом варианте четыре страницы: главная, пространство, форматы, контакты.
+     Цены нигде не показываются, отзывы не выдуманы, все цифры — от заказчика.</p>
+</header>
+
+<div class="grid">
+  <a class="card" href="afisha/index.html">
+    <div class="swatch">
+      <span style="background:#FBF3DC"></span><span style="background:#C62827"></span>
+      <span style="background:#1F1F1F"></span><span style="background:#E2D3AF"></span>
+    </div>
+    <div class="body">
+      <div class="num">Вариант А</div>
+      <h2>Афиша</h2>
+      <p class="desc">Брендбук во главе: кремовая бумага, красная типографская краска,
+        крупный леттеринг и фирменные элементы — рупор, винил, силуэт завода.
+        Ретро-советская афиша в современном исполнении. Единственный вариант,
+        который невозможно спутать с чужим сайтом.</p>
+      <div class="pages">4 страницы · светлый · характерный</div>
+      <span class="go">Открыть <i>↗</i></span>
+    </div>
+  </a>
+
+  <a class="card" href="vecher/index.html">
+    <div class="swatch">
+      <span style="background:#14140F"></span><span style="background:#1F1F1F"></span>
+      <span style="background:#C62827"></span><span style="background:#FBF3DC"></span>
+    </div>
+    <div class="body">
+      <div class="num">Вариант Б</div>
+      <h2>Вечер</h2>
+      <p class="desc">Тёмный премиум, ближайший к референсам заказчика — connect-space
+        и lofthall. Свет на странице дают сами фотографии: свечи, золото, сервировка.
+        Красный работает редкой точкой. Много воздуха, Cormorant в заголовках.</p>
+      <div class="pages">4 страницы · тёмный · фотографии</div>
+      <span class="go">Открыть <i>↗</i></span>
+    </div>
+  </a>
+
+  <a class="card" href="plastinka/index.html">
+    <div class="swatch">
+      <span style="background:#FBF3DC"></span><span style="background:#C62827"></span>
+      <span style="background:#6A99BA"></span><span style="background:#16171A"></span>
+    </div>
+    <div class="body">
+      <div class="num">Вариант Г</div>
+      <h2>Пластинка</h2>
+      <p class="desc">Игривый. Метафора взята с подарочных сертификатов площадки:
+        они сделаны в виде виниловых пластинок с поворотным сектором. Зоны читаются
+        как трек-лист стороны А, форматы — как пластинки, у которых сектор
+        отъезжает веером и открывает кадр. Через всю страницу тянется красная нить,
+        дорисовывающаяся со скроллом.</p>
+      <div class="pages">только главная · светлый · метафоричный</div>
+      <span class="go">Открыть <i>↗</i></span>
+    </div>
+  </a>
+
+  <a class="card" href="remeslo/index.html">
+    <div class="swatch">
+      <span style="background:#FFFFFF"></span><span style="background:#1F1F1F"></span>
+      <span style="background:#E2D3AF"></span><span style="background:#C62827"></span>
+    </div>
+    <div class="body">
+      <div class="num">Вариант В</div>
+      <h2>Ремесло</h2>
+      <p class="desc">Европейский спокойный минимализм по системе for-living.it:
+        белый фон, чёрные секции-инверсии, кремовые вставки и ровно один акцент.
+        Заголовки крупные, но лёгкие. Нумерованный процесс, нарратив наследия,
+        счётчики цифр.</p>
+      <div class="pages">4 страницы · светлый · сдержанный</div>
+      <span class="go">Открыть <i>↗</i></span>
+    </div>
+  </a>
+</div>
+
+<footer>
+  Прототипы работают на общих ассетах из папки <b>shared</b>: фотографии зала и сервировки,
+  кадры и видео из ролика, логотипы и фирменные элементы в векторе, шрифт Alistair Signature.
+  Требования и точные данные — в файле БРИФ.md.
+</footer>

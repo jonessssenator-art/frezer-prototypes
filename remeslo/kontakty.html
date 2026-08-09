@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Контакты — «Фрезер», Москва, 2-я Фрезерная улица, 3</title>
+<meta name="description" content="Адрес площадки «Фрезер»: Москва, 2-я Фрезерная улица, 3. Бесплатная парковка на 20 мест, заезд автомобиля на площадку. Заявка на событие уходит в Телеграм.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<link rel="preload" href="../shared/fonts/AlistairSignature-subset.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="../shared/brand/logo-oval-red.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<div class="curtain" aria-hidden="true"></div>
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__logo" href="index.html" aria-label="Фрезер — на главную">
+      <img src="../shared/brand/logo-black.svg" alt="Фрезер" width="177" height="77">
+    </a>
+    <nav class="nav" aria-label="Основное меню">
+      <a class="nav__link" href="index.html">Главная</a>
+      <a class="nav__link" href="prostranstvo.html">Пространство</a>
+      <a class="nav__link" href="formaty.html">Форматы</a>
+      <a class="nav__link" href="kontakty.html" aria-current="page">Контакты</a>
+    </nav>
+    <a class="btn hdr__cta" href="#zayavka">Оставить заявку <span class="arw" aria-hidden="true">→</span></a>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span></button>
+  </div>
+</header>
+
+<div class="mnav" id="mnav" aria-hidden="true">
+  <a href="index.html">Главная</a>
+  <a href="prostranstvo.html">Пространство</a>
+  <a href="formaty.html">Форматы</a>
+  <a href="kontakty.html" aria-current="page">Контакты</a>
+  <div class="mnav__foot">
+    <a class="btn" href="#zayavka">Оставить заявку <span class="arw" aria-hidden="true">→</span></a>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============================ Шапка страницы ========================== -->
+  <section class="phero">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Контакты</span>
+      <div class="phero__grid">
+        <h1 class="h1" data-reveal>Москва, 2-я Фрезерная, <em class="acc">три</em></h1>
+        <p class="lead" data-reveal style="--d:140ms">
+          Отдельно стоящее здание Дома культуры завода «Фрезер» со своим двором
+          и бесплатной парковкой. Приезжайте смотреть — показы проводим
+          по договорённости, площадка готовится к открытию.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== Контакты и форма ========================= -->
+  <section class="sec sec--top0">
+    <div class="wrap">
+      <div class="contacts__grid">
+
+        <!-- Левая колонка: реквизиты и карта -->
+        <div>
+          <dl class="dl" data-stagger="80">
+            <div class="dl__row" data-reveal>
+              <dt>Адрес</dt>
+              <dd>Москва, 2-я Фрезерная улица, 3<small>Дом культуры завода «Фрезер», отдельно стоящее здание</small></dd>
+            </div>
+            <div class="dl__row" data-reveal>
+              <dt>Парковка</dt>
+              <dd>Бесплатная, 20 мест<small>Заезд автомобиля на площадку возможен — согласуем на монтаже</small></dd>
+            </div>
+            <div class="dl__row" data-reveal>
+              <dt>Территория</dt>
+              <dd>Свой двор, 1500 м²<small>Место под монтаж, технику и летний велком</small></dd>
+            </div>
+            <div class="dl__row" data-reveal>
+              <dt>Заявки</dt>
+              <dd><a class="btn" href="#" data-telegram target="_blank" rel="noopener">Написать в Телеграм <span class="arw" aria-hidden="true">→</span></a><small>Или через форму справа — она уходит туда же</small></dd>
+            </div>
+            <div class="dl__row" data-reveal>
+              <dt>Отзывы</dt>
+              <dd>Появятся после первых событий<small>Площадка ещё не открылась. Живые отзывы будут в карточке на <a href="#" data-yandex target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">Яндекс.Картах</a></small></dd>
+            </div>
+          </dl>
+
+          <!-- Заглушка карты: схема, а не имитация настоящей карты.
+               ПОДКЛЮЧЕНИЕ: вместо этого блока — iframe или JS API Яндекс.Карт. -->
+          <div class="map" data-reveal style="margin-top:clamp(30px,3.6vw,48px)" role="img"
+               aria-label="Схема расположения: отдельно стоящее здание на 2-й Фрезерной улице, дом 3">
+            <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+              <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M40 0H0V40" fill="none" stroke="#1F1F1F" stroke-opacity=".07" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="800" height="600" fill="url(#grid)"/>
+              <path d="M-20 470H820" stroke="#1F1F1F" stroke-opacity=".22" stroke-width="10"/>
+              <path d="M250 -20V620" stroke="#1F1F1F" stroke-opacity=".14" stroke-width="6"/>
+              <path d="M620 -20 640 620" stroke="#1F1F1F" stroke-opacity=".1" stroke-width="4"/>
+              <rect x="330" y="210" width="220" height="150" fill="#1F1F1F" fill-opacity=".9"/>
+              <rect x="300" y="180" width="280" height="210" fill="none" stroke="#1F1F1F" stroke-opacity=".35" stroke-width="1" stroke-dasharray="6 5"/>
+              <text x="56" y="508" font-family="Source Sans 3, sans-serif" font-size="15" letter-spacing="2.4" fill="#1F1F1F" fill-opacity=".55">2-Я ФРЕЗЕРНАЯ УЛИЦА</text>
+              <text x="345" y="290" font-family="Source Sans 3, sans-serif" font-size="15" letter-spacing="2" fill="#FBF3DC">ДОМ КУЛЬТУРЫ</text>
+              <text x="345" y="312" font-family="Source Sans 3, sans-serif" font-size="15" letter-spacing="2" fill="#E2D3AF">1575 м² · ДВОР 1500 м²</text>
+              <g class="map__pin">
+                <path d="M440 120v56" stroke="#C62827" stroke-width="1.5"/>
+                <circle cx="440" cy="112" r="9" fill="#C62827"/>
+                <circle cx="440" cy="176" r="3" fill="#C62827"/>
+              </g>
+            </svg>
+            <p class="map__label">
+              <b>Схема — заглушка</b>
+              <span>На боевом сайте здесь интерактивная карта Яндекса с точкой площадки.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Правая колонка: форма -->
+        <div id="zayavka">
+          <span class="eyebrow" data-reveal>Заявка</span>
+          <h2 class="h2" data-reveal style="margin-bottom:14px">Расскажите про событие</h2>
+          <p class="body" data-reveal style="--d:80ms;margin-bottom:clamp(28px,3.4vw,42px)">
+            Ответим в рабочее время: что площадка закрывает сама, что нужно привезти,
+            свободна ли дата.
+          </p>
+
+          <form class="form" data-form novalidate data-reveal style="--d:140ms">
+            <div class="form__two">
+              <div class="field">
+                <label for="f-name">Как к вам обращаться</label>
+                <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Имя">
+                <span class="err">Напишите имя — иначе не будем знать, к кому обращаться</span>
+              </div>
+              <div class="field">
+                <label for="f-phone">Телефон</label>
+                <input id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder="+7 900 000-00-00" inputmode="tel">
+                <span class="err">Нужен телефон из десяти цифр</span>
+              </div>
+            </div>
+
+            <div class="form__two">
+              <div class="field">
+                <label for="f-date">Дата события</label>
+                <input id="f-date" name="date" type="date">
+                <span class="err">Проверьте дату</span>
+              </div>
+              <div class="field">
+                <label for="f-guests">Сколько гостей</label>
+                <input id="f-guests" name="guests" type="number" min="1" max="1000" placeholder="до 1000" inputmode="numeric">
+                <span class="err">Площадка вмещает до 1000 гостей</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-format">Формат</label>
+              <select id="f-format" name="format">
+                <option value="">Ещё не решили</option>
+                <option>Банкет</option>
+                <option>Конференция</option>
+                <option>Концерт</option>
+                <option>Свадьба</option>
+                <option>Корпоратив</option>
+                <option>Частное событие</option>
+              </select>
+              <span class="err">Выберите формат</span>
+            </div>
+
+            <div class="field">
+              <label for="f-note">Что важно знать</label>
+              <textarea id="f-note" name="note" rows="3" placeholder="Сцена, техника, кухня, тайминг — что угодно"></textarea>
+              <span class="err">Заполните поле</span>
+            </div>
+
+            <div class="form__foot">
+              <p class="form__note">
+                Заявка уходит в Телеграм команде площадки. Цен на сайте нет:
+                смету собираем под конкретный сценарий и присылаем ответом.
+              </p>
+              <div>
+                <button class="btn-solid" type="submit">Отправить заявку <span class="arw" aria-hidden="true">→</span></button>
+              </div>
+            </div>
+          </form>
+
+          <div class="sent" data-sent aria-live="polite">
+            <div class="sent__check" aria-hidden="true">
+              <svg width="15" height="12" viewBox="0 0 15 12" fill="none"><path d="M1 6l4.5 4.5L14 1.5" stroke="currentColor" stroke-width="1.4"/></svg>
+            </div>
+            <h3 class="h3" style="margin-bottom:12px">Заявка отправлена</h3>
+            <p class="body" style="margin-bottom:26px">
+              Она ушла в Телеграм команде площадки. Ответим в рабочее время —
+              обычно в тот же день. Если срочно, напишите напрямую.
+            </p>
+            <div class="btn-row">
+              <a class="btn" href="#" data-telegram target="_blank" rel="noopener">Написать в Телеграм <span class="arw" aria-hidden="true">→</span></a>
+              <button class="btn" type="button" data-form-reset>Отправить ещё одну <span class="arw" aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= Как доехать ============================ -->
+  <section class="sec sec--ink">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Дорога и монтаж</span>
+      <div class="split">
+        <div class="split__txt">
+          <h2 class="h2" data-reveal>Здание стоит отдельно — подъезд не через двор жилого дома</h2>
+          <p data-reveal style="--d:220ms;margin-top:28px"><span class="hand">приезжайте днём</span></p>
+        </div>
+        <div class="split__txt">
+          <p class="body" data-reveal style="--d:80ms">
+            Гостям — бесплатная парковка на двадцать мест прямо у здания.
+            Подрядчикам — заезд техники во двор площадью 1500 м²: разгрузка
+            не перекрывает улицу и не зависит от расписания соседнего бизнес-центра.
+          </p>
+          <p class="body" data-reveal style="--d:160ms">
+            Если по сценарию автомобиль должен оказаться внутри — это возможно.
+            Маршрут заезда согласуем заранее, на этапе монтажа.
+          </p>
+          <div class="btn-row" data-reveal style="--d:240ms;margin-top:34px">
+            <a class="btn" href="#" data-yandex target="_blank" rel="noopener">Открыть в Яндекс.Картах <span class="arw" aria-hidden="true">→</span></a>
+            <a class="btn" href="prostranstvo.html">Посмотреть пространство <span class="arw" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__logo">
+        <img src="../shared/brand/logo-sand.svg" alt="Фрезер" width="177" height="77">
+        <p class="foot__addr">
+          <b>Москва, 2-я Фрезерная улица, 3</b>
+          Дом культуры завода «Фрезер»<br>
+          Отдельно стоящее здание, свой двор,<br>
+          бесплатная парковка на 20 мест
+        </p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="prostranstvo.html">Пространство</a></li>
+          <li><a href="formaty.html">Форматы</a></li>
+          <li><a href="kontakty.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Связь</h4>
+        <ul>
+          <li><a href="#zayavka">Оставить заявку</a></li>
+          <li><a href="#" data-telegram target="_blank" rel="noopener">Телеграм площадки</a></li>
+          <li><a href="#" data-yandex target="_blank" rel="noopener">Отзывы на Яндекс.Картах</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bot">
+      <span>«Фрезер» — площадка для событий. Готовимся к открытию.</span>
+      <span>Прототип сайта. Заявки уходят в Телеграм.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

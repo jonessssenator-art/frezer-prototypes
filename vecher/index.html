@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Фрезер — пространство для мероприятий в Москве</title>
+<meta name="description" content="Дом культуры завода «Фрезер» — теперь площадка для событий. 1575 м² внутри, потолки 10 метров, до 1000 гостей. Москва, 2-я Фрезерная, 3.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="../shared/brand/logo-red-plain.svg" type="image/svg+xml">
+<script>
+  document.documentElement.classList.add('js');
+  setTimeout(function () {
+    if (!window.__frezerReady) document.documentElement.classList.remove('js');
+  }, 3000);
+</script>
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<a class="skip" href="#main">К содержанию</a>
+
+<div class="curtain" aria-hidden="true">
+  <span class="curtain__panel curtain__panel--t"></span>
+  <span class="curtain__panel curtain__panel--b"></span>
+  <span class="curtain__seam"></span>
+</div>
+
+<header class="head">
+  <div class="head__in">
+    <a class="logo" href="index.html" aria-label="Фрезер — на главную">
+      <img src="../shared/brand/logo-sand-plain.svg" alt="Фрезер" width="174" height="74">
+    </a>
+    <nav class="nav" aria-label="Основное меню">
+      <a class="nav__link" href="index.html" aria-current="page">Главная</a>
+      <a class="nav__link" href="prostranstvo.html">Пространство</a>
+      <a class="nav__link" href="formaty.html">Форматы</a>
+      <a class="nav__link" href="kontakty.html">Контакты</a>
+    </nav>
+    <a class="btn btn--sm head__cta" href="kontakty.html#zayavka">
+      Оставить заявку <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <ul class="menu__list">
+    <li><a class="menu__link" href="index.html" aria-current="page"><span class="num">01</span> Главная</a></li>
+    <li><a class="menu__link" href="prostranstvo.html"><span class="num">02</span> Пространство</a></li>
+    <li><a class="menu__link" href="formaty.html"><span class="num">03</span> Форматы</a></li>
+    <li><a class="menu__link" href="kontakty.html"><span class="num">04</span> Контакты</a></li>
+  </ul>
+  <div class="menu__foot">
+    Москва, 2-я Фрезерная, 3<br>
+    <a class="tlink" data-link="telegram" href="#">Написать в телеграм</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ПЕРВЫЙ ЭКРАН -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__top">
+        <div>
+          <p class="eyebrow" data-reveal="fade"><span class="dot"></span>Москва · 2-я Фрезерная, 3</p>
+          <h1 class="h-xl" data-reveal style="--d:90ms">
+            Дом культуры завода «Фрезер»
+            <span class="it">теперь площадка для событий</span>
+          </h1>
+        </div>
+        <div class="hero__aside" data-reveal style="--d:220ms">
+          <p class="lead">Отдельно стоящее здание с историей: кирпич, десятиметровые потолки,
+            своя кухня и полторы тысячи метров улицы вокруг.</p>
+          <p class="hand" style="margin-top:22px">вечер перед событием</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="hero__video" data-video data-inview>
+        <div class="hero__film">
+          <img src="../shared/video/frezer-poster.jpg" alt="" width="992" height="432">
+          <video muted loop playsinline preload="metadata" poster="../shared/video/frezer-poster.jpg"
+                 aria-label="Короткий облёт: от фасада через вход в зал">
+            <source src="../shared/video/frezer-hero.webm" type="video/webm">
+            <source src="../shared/video/frezer-hero.mp4" type="video/mp4">
+          </video>
+          <span class="hero__vgrad" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="hero__vcap">
+        <span>Снаружи &mdash; через вход &mdash; в зал</span>
+        <span>12 секунд, без звука</span>
+      </div>
+
+      <p class="hero__scroll"><i aria-hidden="true"></i> Листайте</p>
+    </div>
+  </section>
+
+  <!-- О МЕСТЕ -->
+  <section class="s" aria-labelledby="about-t">
+    <div class="wrap grid">
+      <div class="col-head">
+        <p class="eyebrow" data-reveal="fade">О месте</p>
+      </div>
+      <div class="col-body" data-stagger="90">
+        <h2 class="h-l" id="about-t" data-reveal>Не лофт. <span class="it">Дом культуры.</span></h2>
+        <p data-reveal style="margin-top:1.5em">Здание строили для заводских праздников — со сценой,
+          большим залом и гардеробом на тысячу человек. Масштаб и планировку мы сохранили,
+          а внутри собрали то, чего дому культуры не хватало: свет, звук, экраны,
+          кухню полного цикла.</p>
+        <p data-reveal>Получилось пространство, в котором помещается тысяча гостей — и при этом
+          остаётся воздух. Заезд автомобиля прямо в зал, никаких ограничений по шуму,
+          четыре гримёрные за сценой.</p>
+        <p data-reveal><strong>Площадка новая, первые события впереди.</strong> Пока о ней не рассказали
+          другие — приезжайте и посмотрите сами.</p>
+      </div>
+    </div>
+
+    <div class="wrap pair gap-l">
+      <figure class="fig fig--tall" data-reveal="frame">
+        <div class="fig__frame"><img src="../shared/img/hall-tables.jpg"
+          alt="Основной зал, накрытые круглые столы, свечи в стеклянных подсвечниках, экраны с логотипом за сценой"
+          data-par="0.05" loading="lazy" width="1536" height="1024"></div>
+        <figcaption class="fig__cap"><span>Основной зал · 633 м²</span></figcaption>
+      </figure>
+      <figure class="fig fig--sq" data-reveal="frame">
+        <div class="fig__frame"><img src="../shared/img/candles.jpg"
+          alt="Свечи в высоких стеклянных подсвечниках, тёплое боке на дальнем плане"
+          data-par="0.08" loading="lazy" width="1254" height="1254"></div>
+        <figcaption class="fig__cap"><span class="hand">свет только от свечей</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ВЕДОМОСТЬ -->
+  <section class="s" aria-labelledby="size-t">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-head__label">
+          <p class="eyebrow" data-reveal="fade">Метры</p>
+        </div>
+        <h2 class="h-l" id="size-t" data-reveal>Сколько здесь <span class="it">места</span></h2>
+      </div>
+
+      <div class="ledger gap-l" data-stagger="60">
+        <div class="ledger__row" data-reveal>
+          <p class="ledger__name">Основной зал</p>
+          <p class="ledger__note">Сцена в торце, пять экранов, потолок в десять метров.</p>
+          <p class="ledger__val">633 <span class="unit">м²</span></p>
+        </div>
+        <div class="ledger__row" data-reveal>
+          <p class="ledger__name">Велком-зона</p>
+          <p class="ledger__note">Встреча гостей и фуршет до основной части. Три экрана.</p>
+          <p class="ledger__val">535 <span class="unit">м²</span></p>
+        </div>
+        <div class="ledger__row" data-reveal>
+          <p class="ledger__name">Второй этаж</p>
+          <p class="ledger__note">Отдельное пространство, внутри VIP-ложа на 300 м².</p>
+          <p class="ledger__val">407 <span class="unit">м²</span></p>
+        </div>
+        <div class="ledger__row" data-reveal>
+          <p class="ledger__name">Сцена</p>
+          <p class="ledger__note">Четыре гримёрные рядом, за кулисами.</p>
+          <p class="ledger__val">55 <span class="unit">м²</span></p>
+        </div>
+        <div class="ledger__row" data-reveal>
+          <p class="ledger__name">Улица</p>
+          <p class="ledger__note">Территория вокруг здания: церемония, фуршет, парковка.</p>
+          <p class="ledger__val">1500 <span class="unit">м²</span></p>
+        </div>
+        <div class="ledger__row" data-reveal>
+          <p class="ledger__name">Потолки</p>
+          <p class="ledger__note">Хватает на декорации, свет и полноценную сценографию.</p>
+          <p class="ledger__val">10 <span class="unit">м</span></p>
+        </div>
+        <div class="ledger__row" data-reveal>
+          <p class="ledger__name">Гостей</p>
+          <p class="ledger__note">Гардероб рассчитан ровно на столько же.</p>
+          <p class="ledger__val">1000</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ШИРОКИЙ КАДР ЗАЛА -->
+  <section class="s s--tight">
+    <figure class="fig fig--band" data-reveal="frame">
+      <div class="fig__frame"><img src="../shared/img/hall-wide.jpg"
+        alt="Основной зал целиком: ряды круглых столов, канделябры со свечами, сцена и экраны с логотипом «Фрезер»"
+        data-par="0.06" loading="lazy" width="1600" height="900"></div>
+      <div class="wrap">
+        <figcaption class="fig__cap">
+          <span>Зал перед началом</span>
+          <span>Тысяча человек, десять метров до потолка</span>
+        </figcaption>
+      </div>
+    </figure>
+  </section>
+
+  <!-- АФИША ФОРМАТОВ -->
+  <section class="s" aria-labelledby="fmt-t">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-head__label">
+          <p class="eyebrow" data-reveal="fade">Форматы</p>
+        </div>
+        <h2 class="h-l" id="fmt-t" data-reveal>Что здесь <span class="it">проходит</span></h2>
+      </div>
+
+      <ul class="afisha gap-l" data-afisha data-stagger="55">
+        <li class="afisha__row" data-reveal="line">
+          <a class="afisha__link" href="formaty.html#banket" data-peek="../shared/img/hall-tables.jpg">
+            <span class="afisha__dot" aria-hidden="true"></span>
+            <span class="afisha__name">Банкет</span>
+            <span class="afisha__note">633 м² и своя кухня</span>
+          </a>
+        </li>
+        <li class="afisha__row" data-reveal="line">
+          <a class="afisha__link" href="formaty.html#svadba" data-peek="../shared/img/table-setting.jpg">
+            <span class="afisha__dot" aria-hidden="true"></span>
+            <span class="afisha__name">Свадьба</span>
+            <span class="afisha__note">Церемония на улице, ужин в зале</span>
+          </a>
+        </li>
+        <li class="afisha__row" data-reveal="line">
+          <a class="afisha__link" href="formaty.html#konferenciya" data-peek="../shared/img/hall-wide.jpg">
+            <span class="afisha__dot" aria-hidden="true"></span>
+            <span class="afisha__name">Конференция</span>
+            <span class="afisha__note">Восемь экранов, сцена 55 м²</span>
+          </a>
+        </li>
+        <li class="afisha__row" data-reveal="line">
+          <a class="afisha__link" href="formaty.html#koncert" data-peek="../shared/img/hall-full.jpg">
+            <span class="afisha__dot" aria-hidden="true"></span>
+            <span class="afisha__name">Концерт</span>
+            <span class="afisha__note">Без ограничений по шуму</span>
+          </a>
+        </li>
+        <li class="afisha__row" data-reveal="line">
+          <a class="afisha__link" href="formaty.html#korporativ" data-peek="../shared/img/hall-guests.jpg">
+            <span class="afisha__dot" aria-hidden="true"></span>
+            <span class="afisha__name">Корпоратив</span>
+            <span class="afisha__note">До 1000 гостей, гардероб на всех</span>
+          </a>
+        </li>
+        <li class="afisha__row" data-reveal="line">
+          <a class="afisha__link" href="formaty.html#chastnoe" data-peek="../shared/img/candles.jpg">
+            <span class="afisha__dot" aria-hidden="true"></span>
+            <span class="afisha__name">Частное событие</span>
+            <span class="afisha__note">Второй этаж и VIP-ложа 300 м²</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- СНАРУЖИ -->
+  <section class="s" aria-labelledby="out-t">
+    <div class="wrap wrap--mid">
+      <figure class="fig fig--strip" data-reveal="frame">
+        <div class="fig__frame"><img src="../shared/img/facade.jpg"
+          alt="Кирпичный фасад Дома культуры «Фрезер» на закате: красная вывеска, металлический рельеф, навес над входом"
+          data-par="0.045" loading="lazy" width="992" height="432"></div>
+        <figcaption class="fig__cap"><span>Фасад · 2-я Фрезерная, 3</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="wrap grid gap-l">
+      <div class="col-head">
+        <p class="eyebrow" data-reveal="fade">Снаружи</p>
+      </div>
+      <div class="col-body" data-stagger="80">
+        <h2 class="h-m" id="out-t" data-reveal>Здание стоит отдельно &mdash; <span class="it">и это меняет вечер</span></h2>
+        <p data-reveal style="margin-top:1.4em">Ни соседей за стеной, ни общего входа с торговым центром.
+          Вокруг полторы тысячи метров своей территории: под выездную церемонию, фуршет на воздухе
+          или световую инсталляцию, которую видно с улицы.</p>
+        <p data-reveal>Парковка бесплатная, двадцать мест. Машину можно завести прямо в зал —
+          если по сценарию она должна там оказаться.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРИЗЫВ -->
+  <section class="cta s">
+    <div class="wrap cta__in" data-reveal>
+      <div class="claim">
+        <p class="claim__text">Лучше один раз пройти зал ногами.
+          <span class="it">Включим свет и покажем.</span></p>
+        <img class="flourish" src="../shared/brand/flourish-red.svg" alt="" width="865" height="602">
+      </div>
+      <div>
+        <a class="btn btn--red" href="kontakty.html#zayavka">
+          Оставить заявку <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <p class="eyebrow" style="margin-top:18px">Ответим в телеграме</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <a class="logo" href="index.html" aria-label="Фрезер — на главную">
+          <img src="../shared/brand/logo-sand.svg" alt="Фрезер" width="177" height="77">
+        </a>
+        <p>Дом культуры завода «Фрезер». Пространство для мероприятий.
+          Москва, улица 2-я Фрезерная, дом 3.</p>
+      </div>
+      <div>
+        <p class="foot__k">Страницы</p>
+        <ul class="foot__list">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="prostranstvo.html">Пространство</a></li>
+          <li><a href="formaty.html">Форматы</a></li>
+          <li><a href="kontakty.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__k">Связь</p>
+        <ul class="foot__list">
+          <li><a data-link="telegram" href="#">Телеграм</a></li>
+          <li><a data-link="yandex" href="#">Яндекс.Карты</a></li>
+          <li><a href="kontakty.html#zayavka">Оставить заявку</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 «Фрезер»</span>
+      <span>Прототип сайта · вариант «Вечер»</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
