@@ -64,43 +64,33 @@
 <main id="main">
 
   <!-- ПЕРВЫЙ ЭКРАН -->
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero__top">
-        <div>
-          <p class="eyebrow" data-reveal="fade"><span class="dot"></span>Москва · 2-я Фрезерная, 3</p>
-          <h1 class="h-xl" data-reveal style="--d:90ms">
-            Дом культуры завода «Фрезер»
-            <span class="it">теперь площадка для событий</span>
-          </h1>
-        </div>
-        <div class="hero__aside" data-reveal style="--d:220ms">
-          <p class="lead">Отдельно стоящее здание с историей: кирпич, десятиметровые потолки,
-            своя кухня и полторы тысячи метров улицы вокруг.</p>
-          <p class="hand" style="margin-top:22px">вечер перед событием</p>
-        </div>
-      </div>
+  <!-- Герой «Занавес»: видео на весь экран, две графитовые панели
+       расходятся от центра и открывают кадр -->
+  <section class="hero" data-curtain>
+    <div class="hero__film">
+      <video muted loop playsinline autoplay preload="metadata"
+             poster="../shared/video/hero-wide-poster.jpg"
+             aria-label="Облёт: от фасада через вход в зал, двадцать секунд без звука">
+        <source src="../shared/video/hero-wide.webm" type="video/webm">
+        <source src="../shared/video/hero-wide.mp4" type="video/mp4">
+      </video>
+      <span class="hero__vgrad" aria-hidden="true"></span>
     </div>
 
-    <div class="wrap">
-      <div class="hero__video" data-video data-inview>
-        <div class="hero__film">
-          <img src="../shared/video/frezer-poster.jpg" alt="" width="992" height="432">
-          <video muted loop playsinline preload="metadata" poster="../shared/video/frezer-poster.jpg"
-                 aria-label="Короткий облёт: от фасада через вход в зал">
-            <source src="../shared/video/frezer-hero.webm" type="video/webm">
-            <source src="../shared/video/frezer-hero.mp4" type="video/mp4">
-          </video>
-          <span class="hero__vgrad" aria-hidden="true"></span>
-        </div>
-      </div>
-      <div class="hero__vcap">
-        <span>Снаружи &mdash; через вход &mdash; в зал</span>
-        <span>12 секунд, без звука</span>
-      </div>
-
-      <p class="hero__scroll"><i aria-hidden="true"></i> Листайте</p>
+    <div class="hero__copy">
+      <p class="eyebrow"><span class="dot"></span>Москва · 2-я Фрезерная, 3</p>
+      <h1 class="h-xl">Вечер<span class="it">начинается здесь</span></h1>
+      <p class="lead">Дом культуры завода «Фрезер». Отдельно стоящее здание,
+        1575 м² внутри, до тысячи гостей и никаких ограничений по шуму.</p>
+      <p class="hand">вечер перед событием</p>
+      <a class="btn btn--red" href="kontakty.html#zayavka"><span>Проверить дату</span><span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
     </div>
+
+    <div class="hero__panel hero__panel--t" aria-hidden="true"></div>
+    <div class="hero__panel hero__panel--b" aria-hidden="true"></div>
+    <span class="hero__seam" aria-hidden="true"></span>
+
+    <p class="hero__scroll"><i aria-hidden="true"></i> Листайте</p>
   </section>
 
   <!-- О МЕСТЕ -->
@@ -140,7 +130,7 @@
   </section>
 
   <!-- ВЕДОМОСТЬ -->
-  <section class="s" aria-labelledby="size-t">
+  <section class="s s--screen" aria-labelledby="size-t">
     <div class="wrap">
       <div class="sec-head">
         <div class="sec-head__label">
@@ -205,7 +195,7 @@
   </section>
 
   <!-- АФИША ФОРМАТОВ -->
-  <section class="s" aria-labelledby="fmt-t">
+  <section class="s s--screen" aria-labelledby="fmt-t">
     <div class="wrap">
       <div class="sec-head">
         <div class="sec-head__label">
@@ -216,42 +206,42 @@
 
       <ul class="afisha gap-l" data-afisha data-stagger="55">
         <li class="afisha__row" data-reveal="line">
-          <a class="afisha__link" href="formaty.html#banket" data-peek="../shared/img/hall-tables.jpg">
+          <a class="afisha__link" href="formaty.html#banket">
             <span class="afisha__dot" aria-hidden="true"></span>
             <span class="afisha__name">Банкет</span>
             <span class="afisha__note">633 м² и своя кухня</span>
           </a>
         </li>
         <li class="afisha__row" data-reveal="line">
-          <a class="afisha__link" href="formaty.html#svadba" data-peek="../shared/img/table-setting.jpg">
+          <a class="afisha__link" href="formaty.html#svadba">
             <span class="afisha__dot" aria-hidden="true"></span>
             <span class="afisha__name">Свадьба</span>
             <span class="afisha__note">Церемония на улице, ужин в зале</span>
           </a>
         </li>
         <li class="afisha__row" data-reveal="line">
-          <a class="afisha__link" href="formaty.html#konferenciya" data-peek="../shared/img/hall-wide.jpg">
+          <a class="afisha__link" href="formaty.html#konferenciya">
             <span class="afisha__dot" aria-hidden="true"></span>
             <span class="afisha__name">Конференция</span>
             <span class="afisha__note">Восемь экранов, сцена 55 м²</span>
           </a>
         </li>
         <li class="afisha__row" data-reveal="line">
-          <a class="afisha__link" href="formaty.html#koncert" data-peek="../shared/img/hall-full.jpg">
+          <a class="afisha__link" href="formaty.html#koncert">
             <span class="afisha__dot" aria-hidden="true"></span>
             <span class="afisha__name">Концерт</span>
             <span class="afisha__note">Без ограничений по шуму</span>
           </a>
         </li>
         <li class="afisha__row" data-reveal="line">
-          <a class="afisha__link" href="formaty.html#korporativ" data-peek="../shared/img/hall-guests.jpg">
+          <a class="afisha__link" href="formaty.html#korporativ">
             <span class="afisha__dot" aria-hidden="true"></span>
             <span class="afisha__name">Корпоратив</span>
             <span class="afisha__note">До 1000 гостей, гардероб на всех</span>
           </a>
         </li>
         <li class="afisha__row" data-reveal="line">
-          <a class="afisha__link" href="formaty.html#chastnoe" data-peek="../shared/img/candles.jpg">
+          <a class="afisha__link" href="formaty.html#chastnoe">
             <span class="afisha__dot" aria-hidden="true"></span>
             <span class="afisha__name">Частное событие</span>
             <span class="afisha__note">Второй этаж и VIP-ложа 300 м²</span>

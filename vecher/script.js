@@ -176,33 +176,45 @@
 
   /* --- Видео первого экрана -------------------------------- */
   function initVideo() {
-    var box = document.querySelector('[data-video]');
+    var box = document.querySelector('[data-curtain]');
     if (!box) return;
     var v = box.querySelector('video');
     if (!v) return;
 
-    v.addEventListener('playing', function () { box.classList.add('is-playing'); });
-
-    // При «меньше движения» ролик не запускаем сами: показываем постер
-    // и отдаём управление человеку.
+    // При «меньше движения» занавес сразу открыт, ролик не запускаем сами.
     if (reduced.matches) {
+      box.classList.add('is-open');
       v.setAttribute('controls', '');
       v.setAttribute('preload', 'none');
       return;
     }
 
+    // Занавес расходится, когда кадр готов показать первый пиксель.
+    function open() {
+      requestAnimationFrame(function () {
+        setTimeout(function () { box.classList.add('is-open'); }, 260);
+      });
+    }
+    if (v.readyState >= 2) open();
+    else v.addEventListener('loadeddata', open, { once: true });
+    // страховка: даже если ролик не догрузился, панели не останутся закрытыми
+    setTimeout(function () { box.classList.add('is-open'); }, 2600);
+
+    var pr = v.play();
+    if (pr && pr.catch) pr.catch(function () { /* автозапуск запрещён — остаётся постер */ });
+
+    // Пауза, когда герой ушёл с экрана: не гоняем декодер впустую
     if (!('IntersectionObserver' in window)) return;
-    var io = new IntersectionObserver(function (entries) {
+    new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) {
-          var pr = v.play();
-          if (pr && pr.catch) pr.catch(function () { /* автозапуск запрещён — остаётся постер */ });
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
         } else if (!v.paused) {
           v.pause();
         }
       });
-    }, { threshold: 0.25 });
-    io.observe(box);
+    }, { threshold: 0.2 }).observe(box);
   }
 
   /* --- Шапка: состояние при скролле ------------------------ */
@@ -250,56 +262,6 @@
         set(false);
         burger.focus();
       }
-    });
-  }
-
-  /* --- Афиша: снимок следует за курсором --------------------- */
-  function initPeek() {
-    var list = document.querySelector('[data-afisha]');
-    if (!list || !fine.matches) return;
-
-    var peek = document.createElement('div');
-    peek.className = 'peek';
-    peek.setAttribute('aria-hidden', 'true');
-    var img = document.createElement('img');
-    img.alt = '';
-    peek.appendChild(img);
-    document.body.appendChild(peek);
-
-    var tx = 0, ty = 0, cx = 0, cy = 0, on = false, raf = 0;
-
-    function loop() {
-      cx += (tx - cx) * (reduced.matches ? 1 : 0.14);
-      cy += (ty - cy) * (reduced.matches ? 1 : 0.14);
-      peek.style.left = cx.toFixed(1) + 'px';
-      peek.style.top = cy.toFixed(1) + 'px';
-      if (on) raf = requestAnimationFrame(loop);
-    }
-
-    list.addEventListener('pointermove', function (e) {
-      tx = e.clientX + 130;
-      ty = e.clientY;
-    }, { passive: true });
-
-    var rows = list.querySelectorAll('[data-peek]');
-    for (var i = 0; i < rows.length; i++) {
-      rows[i].addEventListener('pointerenter', function (e) {
-        var src = this.getAttribute('data-peek');
-        if (img.getAttribute('src') !== src) img.setAttribute('src', src);
-        tx = e.clientX + 130;
-        ty = e.clientY;
-        if (!on) { cx = tx; cy = ty; on = true; loop(); }
-        peek.classList.add('is-on');
-      });
-      rows[i].addEventListener('pointerleave', function () {
-        peek.classList.remove('is-on');
-      });
-    }
-
-    list.addEventListener('pointerleave', function () {
-      on = false;
-      cancelAnimationFrame(raf);
-      peek.classList.remove('is-on');
     });
   }
 
@@ -381,7 +343,6 @@
     initVideo();
     initHeader();
     initMenu();
-    initPeek();
     initCurtain();
     initForm();
   });

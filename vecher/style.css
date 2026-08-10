@@ -18,6 +18,7 @@
   --paper: #fbf3dc;
   --sand: #e2d3af;
   --red: #c62827;
+  --blue: #6a99ba;   /* фирменный дополнительный, для точечных акцентов */
 
   --paper-70: rgba(251, 243, 220, 0.72);
   --paper-55: rgba(251, 243, 220, 0.56);
@@ -56,7 +57,21 @@ html {
      горизонтальной прокрутки */
   overflow-x: hidden;
   overflow-x: clip;
+
+  /* Прокрутка по блокам: страница переходит к следующей секции.
+     proximity, а не mandatory — длинные секции остаётся возможным
+     дочитать, страница не выдёргивает их из-под курсора. */
+  scroll-snap-type: y proximity;
 }
+
+/* Каждая секция — точка привязки */
+.hero,
+main > .s,
+.phead {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+.hero { scroll-snap-align: start; scroll-snap-stop: always; }
 
 body {
   background: var(--night);
@@ -132,23 +147,27 @@ h1, h2, h3 {
   font-variant-numeric: lining-nums;
 }
 
-/* классы работают и на не-заголовочных тегах */
+/* Иерархия по брендбуку: Source Sans 3 — основной шрифт заголовков,
+   Cormorant Garamond остаётся только декоративным акцентом (.it). */
 .h-xl, .h-l, .h-m {
-  font-family: var(--f-display);
-  font-weight: 300;
-  letter-spacing: -0.005em;
+  font-family: var(--f-ui);
+  font-weight: 800;
+  letter-spacing: -0.042em;
+  text-transform: uppercase;
   text-wrap: balance;
   max-width: none;
   color: var(--paper);
 }
-.h-xl { font-size: clamp(40px, 5.4vw, 78px); line-height: 1.05; }
-.h-l  { font-size: clamp(34px, 4.8vw, 68px); line-height: 1.08; }
-.h-m  { font-size: clamp(26px, 3vw, 40px); line-height: 1.14; }
+.h-xl { font-size: clamp(40px, 5.8vw, 86px); line-height: 0.94; }
+.h-l  { font-size: clamp(34px, 4.9vw, 70px); line-height: 0.96; }
+.h-m  { font-size: clamp(26px, 3.1vw, 42px); line-height: 1.04; }
 
 em, .it {
   font-style: italic;
   font-family: var(--f-display);
-  font-weight: 300;
+  font-weight: 400;
+  letter-spacing: -0.018em;
+  text-transform: none;
 }
 
 .lead {
@@ -188,6 +207,47 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 .s { padding-block: clamp(72px, 10vh, 126px); }
 .s--tight { padding-block: clamp(48px, 7vh, 88px); }
 .s--flush-t { padding-top: 0; }
+
+/* Секция ровно в один экран: содержимое центрируется по вертикали,
+   отступы ужимаются, прокручивать внутри не приходится.
+   Верхний отступ учитывает фиксированную шапку. */
+.s--screen {
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  padding-top: calc(var(--head-h) + clamp(16px, 3vh, 34px));
+  padding-bottom: clamp(28px, 5vh, 56px);
+}
+
+/* Внутри полноэкранной секции строки живут плотнее — только здесь,
+   на остальных страницах прежний воздух сохраняется. */
+.s--screen .sec-head { margin-bottom: clamp(14px, 2.4vh, 30px); }
+.s--screen .ledger__row { padding-block: clamp(9px, 1.15vh, 16px); }
+.s--screen .ledger__note { font-size: 14px; line-height: 1.45; }
+.s--screen .afisha__link { padding-block: clamp(10px, 1.3vh, 18px); }
+.s--screen .gap-l { margin-top: clamp(14px, 2.2vh, 28px); }
+
+/* Точечный акцент в ведомости: единицы песочные, при наведении
+   строка получает красную засечку слева */
+.ledger .unit { color: var(--sand); }
+.ledger__row { position: relative; }
+.ledger__row::before {
+  content: '';
+  position: absolute;
+  left: -14px; top: 50%;
+  width: 3px; height: 0;
+  background: var(--red);
+  transform: translateY(-50%);
+  transition: height 380ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ledger__row:hover::before { height: 62%; }
+}
+
+/* На низких окнах отпускаем высоту, иначе строки начнут наезжать */
+@media (max-height: 640px) {
+  .s--screen { min-height: 0; padding-bottom: clamp(40px, 7vh, 70px); }
+}
 
 .grid {
   display: grid;
@@ -406,10 +466,14 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 
 .btn--sm { padding: 0.92em 1.4em; font-size: 10.5px; letter-spacing: 0.2em; }
 
-.btn--red { border-color: rgba(198, 40, 39, 0.75); }
-.btn--red::before { background: var(--red); }
+.btn--red {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--paper);
+}
+.btn--red::before { background: var(--paper); }
 @media (hover: hover) and (pointer: fine) {
-  .btn--red:hover { color: var(--paper); border-color: var(--red); }
+  .btn--red:hover { color: var(--ink); border-color: var(--paper); }
 }
 
 /* Текстовая ссылка с подчёркиванием, которое прорисовывается */
@@ -533,104 +597,97 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 }
 
 /* --- Первый экран ------------------------------------------- */
+/* ── Герой «Занавес»: во весь экран ───────────────────────────── */
 .hero {
   position: relative;
-  padding-top: calc(var(--head-h) + clamp(40px, 8vh, 92px));
-  padding-bottom: clamp(40px, 5vh, 64px);
-}
-
-.hero__top {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-  gap: clamp(24px, 4vw, 72px);
-  align-items: end;
-  padding-bottom: clamp(32px, 5vh, 56px);
-}
-@media (max-width: 900px) {
-  .hero__top { grid-template-columns: 1fr; align-items: start; }
-}
-
-.hero h1 { margin-top: 0.5em; }
-.hero h1 .it { display: block; color: var(--sand); }
-
-.hero__aside { padding-bottom: 0.4em; }
-
-/* Видео-полоса: не шире 1200, родное соотношение 992×432 */
-.hero__video {
-  position: relative;
-  width: min(100%, 1160px);
-  aspect-ratio: 992 / 432;
-  background: #0d0d0a;
-}
-.hero__film {
-  position: absolute;
-  inset: 0;
+  height: 100svh;
+  min-height: 560px;
   overflow: hidden;
-  clip-path: inset(50% 0 50% 0);
-  transition: clip-path 1100ms var(--ease-io);
+  display: grid;
 }
-.hero__video.is-in .hero__film { clip-path: inset(0 0 0 0); }
-.hero__video video,
-.hero__video img {
-  position: absolute;
-  inset: 0;
+
+.hero__film { position: absolute; inset: 0; }
+.hero__film video {
   width: 100%; height: 100%;
   object-fit: cover;
+  filter: brightness(0.86) saturate(0.94);
 }
-.hero__video video { opacity: 0; transition: opacity 700ms linear; }
-.hero__video.is-playing video { opacity: 1; }
 
-/* полоска света в момент раскрытия «занавеса» */
-.hero__video::after {
-  content: '';
+.hero__copy {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: clamp(14px, 2vh, 24px);
+  padding: calc(var(--head-h) + 20px) var(--gut) clamp(70px, 12vh, 120px);
+}
+.hero__copy .lead { max-width: 52ch; color: var(--paper-70); }
+.hero__copy .hand { color: var(--red); }
+.hero h1 .it { display: block; color: var(--sand); }
+
+/* Две панели расходятся от центра */
+.hero__panel {
+  position: absolute;
+  left: 0; right: 0;
+  height: 50.5%;
+  background: var(--night);
+  z-index: 4;
+  transition: transform 1500ms cubic-bezier(0.66, 0, 0.2, 1);
+}
+.hero__panel--t { top: 0; }
+.hero__panel--b { bottom: 0; }
+.hero.is-open .hero__panel--t { transform: translateY(-100%); }
+.hero.is-open .hero__panel--b { transform: translateY(100%); }
+
+/* Светящийся шов на стыке панелей */
+.hero__seam {
   position: absolute;
   left: 0; right: 0; top: 50%;
   height: 1px;
-  background: var(--sand);
-  opacity: 0.55;
-  transition: opacity 900ms var(--ease-out) 200ms;
+  z-index: 5;
+  background: linear-gradient(90deg, transparent, var(--sand), transparent);
+  box-shadow: 0 0 22px rgba(226, 211, 175, 0.7);
+  transition: opacity 800ms var(--ease-out) 700ms;
   pointer-events: none;
 }
-.hero__video.is-in::after { opacity: 0; }
+.hero.is-open .hero__seam { opacity: 0; }
 
-.hero__video video,
-.hero__video > img {
-  filter: brightness(0.88) saturate(0.94);
-}
-
+/* Затемнение под текстом: кадр яркий, без вуали заголовок теряется.
+   Центр гасим сильнее краёв — текст стоит именно там. */
 .hero__vgrad {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background:
-    radial-gradient(118% 96% at 50% 52%, rgba(20, 20, 15, 0) 38%, rgba(20, 20, 15, 0.72) 100%),
-    linear-gradient(to top, rgba(20, 20, 15, 0.5), rgba(20, 20, 15, 0) 36%);
+    radial-gradient(64% 46% at 50% 46%, rgba(20, 20, 15, 0.72) 0%, rgba(20, 20, 15, 0.34) 62%, rgba(20, 20, 15, 0) 100%),
+    radial-gradient(128% 96% at 50% 54%, rgba(20, 20, 15, 0) 24%, rgba(20, 20, 15, 0.88) 100%),
+    linear-gradient(to top, rgba(20, 20, 15, 0.66), rgba(20, 20, 15, 0) 40%);
   pointer-events: none;
 }
-
-.hero__vcap {
-  margin-top: 18px;
-  display: flex;
-  justify-content: space-between;
-  gap: 6px 20px;
-  width: min(100%, 1160px);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--paper-35);
-}
 @media (max-width: 700px) {
-  .hero__vcap { flex-direction: column; letter-spacing: 0.16em; }
+  .hero__vgrad {
+    background:
+      linear-gradient(180deg, rgba(20, 20, 15, 0.72) 0%, rgba(20, 20, 15, 0.58) 46%, rgba(20, 20, 15, 0.8) 100%);
+  }
 }
 
 .hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(24px, 4vh, 44px);
+  transform: translateX(-50%);
+  z-index: 3;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-top: clamp(40px, 7vh, 84px);
+  margin: 0;
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--paper-35);
+  white-space: nowrap;
 }
 .hero__scroll i {
   display: block;
@@ -751,20 +808,26 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
   transform: scale(0);
   transition: transform 300ms var(--ease-out);
 }
+/* Названия форматов — основным шрифтом, как велит брендбук */
 .afisha__name {
-  font-family: var(--f-display);
-  font-weight: 300;
-  font-size: clamp(28px, 4.4vw, 58px);
-  line-height: 1.1;
+  font-family: var(--f-ui);
+  font-weight: 700;
+  font-size: clamp(26px, 3.6vw, 48px);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
   transition: transform 420ms var(--ease-out), color 300ms var(--ease-out);
 }
+/* Подпись рядом — не сноска: читаемый размер и нормальный контраст */
 .afisha__note {
-  font-size: 11.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--paper-35);
+  font-size: clamp(13px, 1.05vw, 15px);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--paper-55);
   text-align: right;
   transition: color 300ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .afisha__link:hover .afisha__note { color: var(--sand); }
 }
 @media (hover: hover) and (pointer: fine) {
   .afisha__link:hover .afisha__dot { transform: scale(1); }
@@ -777,21 +840,6 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 }
 
 /* Снимок, который следует за курсором */
-.peek {
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 40;
-  width: 300px;
-  aspect-ratio: 3 / 4;
-  pointer-events: none;
-  opacity: 0;
-  transform: translate3d(-50%, -50%, 0) scale(0.94);
-  transition: opacity 320ms var(--ease-out), transform 420ms var(--ease-out);
-  box-shadow: 0 0 90px 10px rgba(226, 211, 175, 0.14);
-}
-.peek.is-on { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1); }
-.peek img { width: 100%; height: 100%; object-fit: cover; }
-@media (max-width: 1000px) { .peek { display: none; } }
 
 /* --- Зоны (страница «Пространство») --------------------------- */
 .zone {
@@ -855,51 +903,6 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 }
 
 /* Линейка высоты поверх снимка зала */
-.ruler {
-  position: absolute;
-  z-index: 2;
-  left: 4.5%;
-  top: 5%;
-  bottom: 30%;
-  width: 60px;
-  pointer-events: none;
-  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.85));
-}
-.ruler__line {
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, rgba(251, 243, 220, 0.95), rgba(251, 243, 220, 0.7));
-  transform: scaleY(0);
-  transform-origin: bottom center;
-  transition: transform 1100ms var(--ease-io) 400ms;
-}
-.ruler__cap {
-  position: absolute;
-  left: -5px;
-  width: 11px; height: 1px;
-  background: var(--paper);
-  opacity: 0;
-  transition: opacity 400ms var(--ease-out) 1300ms;
-}
-.ruler__cap--t { top: 0; }
-.ruler__cap--b { bottom: 0; }
-.ruler__label {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--f-ui);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--paper);
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 600ms var(--ease-out) 1300ms;
-}
 .is-in .ruler__line { transform: scaleY(1); }
 .is-in .ruler__cap,
 .is-in .ruler__label { opacity: 1; }
@@ -978,25 +981,54 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 .fmt__head { grid-column: 3 / 8; }
 .fmt__media { grid-column: 8 / 13; }
 .fmt__head p { margin-top: 1.4em; }
+/* Преимущества — не мелкая сноска, а самостоятельные плашки.
+   Цвет обводки чередуется по фирменной палитре. */
 .fmt__list {
-  margin-top: 30px;
-  padding-top: 20px;
+  margin-top: 34px;
+  padding-top: 26px;
   border-top: 1px solid var(--line);
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 26px;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--paper-55);
+  gap: 10px;
 }
-.fmt__list li { display: flex; align-items: baseline; gap: 9px; }
+.fmt__list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  font-size: clamp(14px, 1.15vw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--paper);
+  transition: border-color 320ms var(--ease-out), background-color 320ms var(--ease-out);
+}
 .fmt__list li::before {
   content: '';
-  width: 3px; height: 3px;
+  width: 7px; height: 7px;
   border-radius: 50%;
-  background: var(--sand);
   flex: none;
+  background: var(--sand);
+}
+.fmt__list li:nth-child(4n + 1)::before { background: var(--red); }
+.fmt__list li:nth-child(4n + 2)::before { background: var(--sand); }
+.fmt__list li:nth-child(4n + 3)::before { background: var(--blue); }
+.fmt__list li:nth-child(4n + 4)::before { background: var(--paper-55); }
+
+@media (hover: hover) and (pointer: fine) {
+  .fmt__list li:hover {
+    border-color: var(--paper-35);
+    background: rgba(226, 211, 175, 0.06);
+  }
+}
+
+/* Описание формата: крупнее и контрастнее, это основной текст страницы */
+.fmt__head p {
+  font-size: clamp(17px, 1.35vw, 20px);
+  line-height: 1.6;
+  color: var(--paper-70);
+  max-width: 38em;
 }
 @media (max-width: 900px) {
   .fmt { gap: 22px; padding-block: 46px; }
@@ -1236,6 +1268,101 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
   .honest { grid-template-columns: 1fr; }
 }
 
+/* --- Контакты: цветные засечки и часы --------------------------- */
+.dl__item {
+  position: relative;
+  padding-left: 20px;
+}
+.dl__item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 4px; bottom: 4px;
+  width: 2px;
+  background: var(--line-2);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 620ms var(--ease-out), background-color 300ms;
+}
+.dl__item.is-in::before { transform: scaleY(1); }
+.dl__item--red::before  { background: var(--red); }
+.dl__item--sand::before { background: var(--sand); }
+.dl__item--blue::before { background: var(--blue); }
+
+.hours {
+  margin-top: clamp(28px, 4vh, 46px);
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 14px;
+}
+.hours li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  justify-content: space-between;
+  font-size: 15px;
+}
+.hours b { font-weight: 600; color: var(--paper); }
+.hours span { color: var(--paper-55); text-align: right; }
+
+/* --- Строка акцентных фактов ----------------------------------- */
+/* Единственное место, где фирменные красный, песочный и голубой
+   работают в полную силу: коротко, крупно и не на весь экран. */
+.accents {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: clamp(28px, 4vh, 52px);
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+.accents__item {
+  display: grid;
+  gap: 6px;
+  padding: clamp(18px, 2.4vw, 30px) clamp(14px, 2vw, 26px);
+  background: var(--night);
+  position: relative;
+  overflow: hidden;
+}
+.accents__item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 700ms var(--ease-out);
+}
+.accents.is-in .accents__item::before { transform: scaleY(1); }
+.accents__item:nth-child(2)::before { transition-delay: 90ms; }
+.accents__item:nth-child(3)::before { transition-delay: 180ms; }
+.accents__item:nth-child(4)::before { transition-delay: 270ms; }
+
+.accents__item b {
+  font-family: var(--f-ui);
+  font-size: clamp(30px, 3.6vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.accents__item span {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper-55);
+}
+
+.accents__item--red::before   { background: var(--red); }
+.accents__item--red b         { color: var(--red); }
+.accents__item--sand::before  { background: var(--sand); }
+.accents__item--sand b        { color: var(--sand); }
+.accents__item--blue::before  { background: var(--blue); }
+.accents__item--blue b        { color: var(--blue); }
+
+@media (max-width: 760px) {
+  .accents { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* --- Подвал ---------------------------------------------------- */
 .foot {
   border-top: 1px solid var(--line);
@@ -1367,7 +1494,8 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 
 /* --- Меньше движения -------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html { scroll-behavior: auto; scroll-snap-type: none; }
+  .hero, main > .s, .phead { scroll-snap-align: none; }
 
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -1391,7 +1519,6 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
   .hero__video::after { opacity: 0; }
   .hero__video video { opacity: 1; }
   .flourish { clip-path: none; }
-  .ruler__line { transform: scaleY(1); }
   .ruler__cap, .ruler__label { opacity: 1; }
   .torch { display: none; }
   .curtain { display: none; }
