@@ -29,6 +29,24 @@
     else document.addEventListener('DOMContentLoaded', fn);
   }
 
+
+  /* --- Кольцо фокуса только для клавиатуры -------------------
+     Браузер восстанавливает фокус после перезагрузки (обычно на
+     первой ссылке — логотипе) и рисует вокруг него рамку, хотя
+     человек ничего не нажимал. Снимаем такой фокус до тех пор,
+     пока не воспользовались Tab: тем, кто ходит с клавиатуры,
+     кольцо по-прежнему нужно. */
+  var keyboardNav = false;
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') keyboardNav = true;
+  }, true);
+
+  function dropRestoredFocus() {
+    if (keyboardNav) return;
+    var a = document.activeElement;
+    if (a && a !== document.body && a !== html && typeof a.blur === 'function') a.blur();
+  }
+
   /* --- Ссылки-константы ---------------------------------- */
   function applyLinks() {
     var nodes = document.querySelectorAll('[data-link]');
@@ -217,6 +235,107 @@
     }, { threshold: 0.2 }).observe(box);
   }
 
+
+  /* --- Форматы: кадр меняется при наведении на строку -------- */
+  function initDuo() {
+    var box = document.querySelector('[data-duo]');
+    if (!box) return;
+    var rows = box.querySelectorAll('.duo__row');
+    var pics = box.querySelectorAll('.duo__ph img');
+    if (!rows.length || !pics.length) return;
+
+    function show(i) {
+      for (var r = 0; r < rows.length; r++) rows[r].classList.toggle('is-on', r === i);
+      for (var p = 0; p < pics.length; p++) pics[p].classList.toggle('is-on', p === i);
+    }
+
+    for (var k = 0; k < rows.length; k++) {
+      (function (row) {
+        var i = parseInt(row.getAttribute('data-i'), 10) || 0;
+        row.addEventListener('pointerenter', function () { show(i); });
+        row.addEventListener('focus', function () { show(i); });
+      })(rows[k]);
+    }
+  }
+
+
+  /* --- Мягкая доводка до секции ------------------------------
+     Нативный scroll-snap докручивает мгновенно и ощущается рывком.
+     Здесь: дожидаемся, пока человек отпустит колесо, и только если
+     секция уже совсем рядом — плавно доводим её по кривой.
+     Длинные секции не трогаем: если вы в середине, до верха далеко
+     и доводка не сработает. Любое движение пользователя её отменяет. */
+  function initSoftSnap() {
+    if (reduced.matches) return;
+
+    var secs = [].slice.call(document.querySelectorAll('.hero, main > .s, .phead'));
+    if (secs.length < 2) return;
+
+    var timer = null, raf = 0, programmatic = false;
+
+    function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+    function nearestTop() {
+      var y = window.pageYOffset;
+      var best = null, bestD = Infinity;
+      for (var i = 0; i < secs.length; i++) {
+        var top = secs[i].getBoundingClientRect().top + y;
+        var d = Math.abs(top - y);
+        if (d < bestD) { bestD = d; best = top; }
+      }
+      return { top: best, dist: bestD };
+    }
+
+    function glide(to) {
+      cancelAnimationFrame(raf);
+      var from = window.pageYOffset;
+      var delta = to - from;
+      if (Math.abs(delta) < 6) return;
+
+      // чем дальше — тем дольше, но в разумных пределах
+      var dur = Math.min(820, Math.max(380, Math.abs(delta) * 1.35));
+      var t0 = null;
+      var stop = false;
+
+      function abort() { stop = true; }
+      window.addEventListener('wheel', abort, { passive: true });
+      window.addEventListener('touchstart', abort, { passive: true });
+      window.addEventListener('keydown', abort);
+
+      function done() {
+        programmatic = false;
+        html.style.scrollBehavior = '';
+        window.removeEventListener('wheel', abort);
+        window.removeEventListener('touchstart', abort);
+        window.removeEventListener('keydown', abort);
+      }
+
+      programmatic = true;
+      // css-свойство scroll-behavior: smooth перехватывает каждый наш
+      // покадровый scrollTo и анимация не доезжает — на время гасим его
+      html.style.scrollBehavior = 'auto';
+      raf = requestAnimationFrame(function step(now) {
+        if (stop) { done(); return; }
+        if (t0 === null) t0 = now;
+        var p = Math.min(1, (now - t0) / dur);
+        window.scrollTo(0, from + delta * ease(p));
+        if (p < 1) raf = requestAnimationFrame(step);
+        else done();
+      });
+    }
+
+    window.addEventListener('scroll', function () {
+      if (programmatic) return;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        var n = nearestTop();
+        // подтягиваем, только если верх секции уже близко —
+        // иначе человек читает середину, и дёргать его нельзя
+        if (n.dist > 6 && n.dist < window.innerHeight * 0.28) glide(n.top);
+      }, 170);
+    }, { passive: true });
+  }
+
   /* --- Шапка: состояние при скролле ------------------------ */
   function initHeader() {
     var head = document.querySelector('.head');
@@ -341,9 +460,17 @@
     initReveal();
     initMotion();
     initVideo();
+    initDuo();
+    initSoftSnap();
     initHeader();
     initMenu();
     initCurtain();
     initForm();
+
+    // фокус, восстановленный браузером, снимаем — и сразу, и при
+    // возврате «назад» из кеша страниц
+    dropRestoredFocus();
+    window.addEventListener('pageshow', dropRestoredFocus);
+    window.addEventListener('load', dropRestoredFocus);
   });
 })();

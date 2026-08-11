@@ -58,20 +58,9 @@ html {
   overflow-x: hidden;
   overflow-x: clip;
 
-  /* Прокрутка по блокам: страница переходит к следующей секции.
-     proximity, а не mandatory — длинные секции остаётся возможным
-     дочитать, страница не выдёргивает их из-под курсора. */
-  scroll-snap-type: y proximity;
+  /* Доводка до секции сделана скриптом (initSoftSnap): нативный
+     scroll-snap докручивает мгновенно и ощущается рывком. */
 }
-
-/* Каждая секция — точка привязки */
-.hero,
-main > .s,
-.phead {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
-}
-.hero { scroll-snap-align: start; scroll-snap-stop: always; }
 
 body {
   background: var(--night);
@@ -106,14 +95,6 @@ a { color: inherit; text-decoration: none; }
   clip-path: inset(50%); white-space: nowrap;
 }
 
-.skip {
-  position: fixed; top: 10px; left: 10px; z-index: 999;
-  padding: 12px 18px; background: var(--paper); color: var(--night);
-  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
-  transform: translateY(-160%);
-  transition: transform 200ms var(--ease-out);
-}
-.skip:focus-visible { transform: translateY(0); }
 
 /* --- Типографика -------------------------------------------- */
 .eyebrow {
@@ -314,10 +295,10 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 }
 
 .logo { display: block; flex: none; }
-.logo img { height: 30px; width: auto; }
+.logo img { height: 46px; width: auto; }
 .head .logo { margin-right: auto; }
 
-@media (max-width: 900px) { .logo img { height: 24px; } }
+@media (max-width: 900px) { .logo img { height: 34px; } }
 
 .nav { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 34px); }
 
@@ -1052,11 +1033,19 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 }
 .claim__text .it { color: var(--sand); }
 
-/* Росчерк, который «дорисовывается» */
+/* Кнопка стоит под текстом призыва */
+.claim__act {
+  margin-top: clamp(26px, 4vh, 44px);
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+}
+
+/* Росчерк, который «дорисовывается» — теперь справа от текста */
 .flourish {
-  width: clamp(140px, 18vw, 236px);
-  margin-top: 30px;
-  margin-left: -10px;
+  width: clamp(150px, 20vw, 280px);
+  justify-self: end;
+  align-self: center;
   opacity: 0.9;
   clip-path: inset(0 100% 0 0);
   transition: clip-path 1600ms var(--ease-io) 200ms;
@@ -1085,10 +1074,11 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: clamp(28px, 5vw, 80px);
-  align-items: end;
+  align-items: center;
 }
 @media (max-width: 800px) {
   .cta__in { grid-template-columns: 1fr; align-items: start; }
+  .flourish { justify-self: start; margin-top: 8px; }
 }
 
 /* --- Контакты -------------------------------------------------- */
@@ -1266,6 +1256,74 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 }
 @media (max-width: 720px) {
   .honest { grid-template-columns: 1fr; }
+}
+
+/* --- Форматы: список и кадр рядом -------------------------------- */
+/* Кадр стоит в своей рамке и меняется при наведении. За курсором
+   ничего не летает — заказчику это не нравилось. */
+.duo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .74fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+
+.duo__list { display: grid; border-top: 1px solid var(--line); }
+
+.duo__row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 24px;
+  gap: clamp(12px, 1.6vw, 24px);
+  align-items: center;
+  padding: clamp(10px, 1.5vh, 18px) 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--paper-55);
+  transition: color 320ms var(--ease-out), padding-left 320ms var(--ease-out);
+}
+.duo__num { font-size: 11px; letter-spacing: 0.14em; color: var(--paper-35); transition: color 300ms; }
+.duo__body { display: grid; gap: 3px; }
+.duo__body b {
+  font-family: var(--f-ui);
+  font-size: clamp(20px, 2.3vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+.duo__body small { font-size: clamp(13px, 1.05vw, 15px); color: var(--paper-55); }
+.duo__go { font-size: 17px; justify-self: end; color: var(--paper-35); transition: transform 320ms var(--ease-out), color 300ms; }
+
+@media (hover: hover) and (pointer: fine) {
+  .duo__row:hover, .duo__row.is-on { color: var(--paper); padding-left: 12px; }
+  .duo__row:hover .duo__num, .duo__row.is-on .duo__num { color: var(--red); }
+  .duo__row:hover .duo__go { transform: translateX(5px); color: var(--red); }
+}
+.duo__row:focus-visible { padding-left: 12px; }
+
+.duo__ph {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: min(58vh, 520px);
+  width: 100%;
+  justify-self: end;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  background: #0d0d09;
+}
+.duo__ph img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 560ms var(--ease-out);
+}
+.duo__ph img.is-on { opacity: 1; }
+
+@media (max-width: 900px) {
+  .duo { grid-template-columns: 1fr; }
+  .duo__ph { display: none; }
 }
 
 /* --- Контакты: цветные засечки и часы --------------------------- */
@@ -1494,8 +1552,7 @@ p strong, .accent { color: var(--paper); font-weight: 400; }
 
 /* --- Меньше движения -------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; scroll-snap-type: none; }
-  .hero, main > .s, .phead { scroll-snap-align: none; }
+  html { scroll-behavior: auto; }
 
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
