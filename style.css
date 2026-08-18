@@ -1,0 +1,574 @@
+/* Фрезер — вариант «Пластинка», тёмная редакция.
+   Палитра снята с референса заказчика: фирменные цвета уведены в тень
+   (красный → бордо, голубой → ночной синий), чистый #C62827 оставлен
+   точечным акцентом — игла, точки, наведение. Метафора прежняя:
+   площадка как проигрыватель, форматы как пластинки в конвертах. */
+
+:root {
+  --void:  #0B0A0A;   /* фон страницы */
+  --coal:  #141312;   /* плашки и карточки */
+  --soot:  #1B1917;   /* линии-разделители на плашках */
+  --bordo: #6E1C1D;   /* фирменный красный в тени */
+  --red:   #C62827;   /* фирменный красный, точечно */
+  --navy:  #1A2733;   /* фирменный голубой в тени */
+  --bone:  #E9E0CC;   /* основной текст */
+  --sand:  #E2D3AF;   /* акцентный текст */
+  --paper: #FBF3DC;   /* светлая вставка */
+
+  --dim:  rgba(233, 224, 204, .62);
+  --dimmer: rgba(233, 224, 204, .52);   /* ниже опускать нельзя: мелкий текст перестаёт читаться */
+  --line: rgba(233, 224, 204, .13);
+
+  --pad:  clamp(20px, 5vw, 80px);
+  --межблок: clamp(22px, 2.6vw, 38px);   /* половина зазора между главами: 2×38 ≈ 2 см */
+  --wide: 1400px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --мягко: cubic-bezier(.18, .9, .24, 1);   /* для пластинок в ящике */
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--bone);
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+@font-face {
+  font-family: 'Alistair Signature';
+  src: url('shared/fonts/AlistairSignature-subset.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+img, video { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+p { margin: 0; }
+::selection { background: var(--red); color: var(--paper); }
+
+:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; border-radius: 2px; }
+:focus:not(:focus-visible) { outline: none; }
+/* Рамку показываем только тем, кто реально пошёл по Tab. Без этого браузер
+   после перезагрузки сам возвращает фокус на логотип и рисует вокруг него
+   рамку, которая висит до клика в пустое место. Правило работает только
+   когда скрипт жив — без скрипта рамка остаётся всегда, как и должна. */
+html.js:not(.клавиатура) :focus-visible { outline: none; }
+.brand, .brand img { -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
+
+/* ─── Общая типографика ────────────────────────────────────────── */
+/* Крупное всегда набирается лёгким Cormorant в капсе с разрядкой —
+   это главный приём референса, он и даёт ощущение дорогого. */
+.display {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300; text-transform: uppercase;
+  letter-spacing: .085em; line-height: 1.02;
+}
+.eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: .24em;
+  text-transform: uppercase; color: var(--dim);
+}
+.lead { color: var(--dim); max-width: 46ch; font-size: clamp(15px, 1.3vw, 17px); }
+
+/* ─── Появление при скролле ────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(22px); }
+.reveal.on { opacity: 1; transform: none; transition: opacity .9s ease, transform 1s var(--ease); }
+
+/* ─── Шапка ────────────────────────────────────────────────────── */
+.bar {
+  position: fixed; inset: 0 0 auto; z-index: 40;
+  display: flex; align-items: center; gap: clamp(16px, 3vw, 46px);
+  padding: 16px var(--pad);
+  transition: background .5s ease, border-color .5s ease, backdrop-filter .5s ease;
+  border-bottom: 1px solid transparent;
+}
+.bar.stuck {
+  background: rgba(11, 10, 10, .82);
+  backdrop-filter: blur(16px);
+  border-bottom-color: var(--line);
+}
+.brand img { width: clamp(104px, 10vw, 138px); height: auto; }
+
+/* Навигация парами: заголовок и перевод под ним — приём из референса */
+.bar nav { display: flex; gap: clamp(16px, 2.4vw, 40px); margin-left: auto; }
+.bar nav a { display: grid; gap: 2px; padding: 4px 0; position: relative; }
+.bar nav a b {
+  font-size: 11px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase;
+}
+.bar nav a i {
+  font-style: normal; font-size: 9px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--dimmer);
+  transition: color .35s ease;
+}
+.bar nav a::after {
+  content: ""; position: absolute; left: 0; bottom: -4px; height: 1px; width: 100%;
+  background: var(--red); transform: scaleX(0); transform-origin: right;
+  transition: transform .45s var(--ease);
+}
+.bar nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+.bar nav a:hover i { color: var(--sand); }
+
+/* Тумблер щелчка иглы. Показывается скриптом и только там, где есть
+   мышь: на тач-устройствах наведения нет и звуку взяться неоткуда */
+.sound {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: inherit; font-size: 9px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--dimmer); background: none; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 999px; padding: 9px 15px;
+  transition: color .35s ease, border-color .35s ease;
+}
+.sound i { font-style: normal; }
+.sound span {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+  box-shadow: 0 0 0 3px rgba(198, 40, 39, .16);
+  transition: background .35s ease, box-shadow .35s ease;
+}
+.sound:hover { color: var(--sand); border-color: rgba(226, 211, 175, .4); }
+.sound[aria-pressed="false"] { color: rgba(233, 224, 204, .3); }
+.sound[aria-pressed="false"] span { background: rgba(233, 224, 204, .3); box-shadow: none; }
+
+.burger { display: none; width: 46px; height: 42px; margin-left: auto; background: none; border: 0; cursor: pointer; padding: 11px 9px; }
+.burger span { display: block; height: 1px; background: var(--bone); margin: 6px 0; transition: transform .35s var(--ease); }
+.burger[aria-expanded="true"] span:first-child { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:last-child { transform: translateY(-7px) rotate(-45deg); }
+
+.menu {
+  position: fixed; inset: 0; z-index: 39;
+  background: var(--void); padding: 96px var(--pad) 40px;
+  display: grid; align-content: start; gap: 2px;
+}
+.menu a { border-bottom: 1px solid var(--line); padding: 20px 0; display: grid; gap: 4px; }
+.menu a b { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 30px; letter-spacing: .06em; text-transform: uppercase; }
+.menu a i { font-style: normal; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--dimmer); }
+
+/* ─── Кнопки ───────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: inherit; font-size: 11px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 15px 26px; border: 1px solid var(--sand); border-radius: 999px;
+  color: var(--sand); background: none; cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: color .4s var(--ease), border-color .4s var(--ease);
+}
+.btn span, .btn i { position: relative; z-index: 2; }
+.btn i { font-style: normal; transition: transform .4s var(--ease); }
+.btn::before {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: var(--red); transform: translateY(101%);
+  transition: transform .45s var(--ease);
+}
+.btn:hover { color: var(--paper); border-color: var(--red); }
+.btn:hover::before { transform: translateY(0); }
+.btn:hover i { transform: translateX(5px); }
+.btn:active { transform: scale(.98); }
+.btn-red { background: var(--bordo); border-color: var(--bordo); color: var(--paper); }
+.btn-red:hover { border-color: var(--red); }
+
+/* круглая кнопка со стрелкой — повторяющийся элемент референса */
+.circle {
+  width: 42px; height: 42px; flex: none; border-radius: 50%;
+  border: 1px solid var(--line); display: grid; place-items: center;
+  font-size: 13px; color: var(--dim);
+  transition: border-color .4s var(--ease), color .4s var(--ease), background .4s var(--ease);
+}
+a:hover .circle, .rec:hover .circle { border-color: var(--red); background: var(--red); color: var(--paper); }
+
+/* ─── Игла: тонкая шкала прокрутки слева ───────────────────────── */
+.needle {
+  position: fixed; left: max(14px, calc(var(--pad) / 3)); top: 22vh; bottom: 22vh;
+  width: 1px; background: var(--line); z-index: 30; pointer-events: none;
+}
+.needle b {
+  position: absolute; left: 50%; top: 0; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--red); transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 4px rgba(198, 40, 39, .18);
+}
+
+/* ─── Герой ────────────────────────────────────────────────────── */
+.hero {
+  position: relative; min-height: 100svh;
+  display: grid; align-items: end;
+  padding: 0 var(--pad) clamp(34px, 6vh, 72px);
+  overflow: hidden;
+  /* кадр из ролика лежит подложкой: он же виден при «меньше движения» */
+  background: var(--void) url('shared/video/vinyl-poster.jpg') 52% 46% / cover no-repeat;
+}
+.hero-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 52% 46%;
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(0deg, var(--void) 2%, rgba(11, 10, 10, .55) 34%, rgba(11, 10, 10, .12) 66%),
+    linear-gradient(90deg, rgba(11, 10, 10, .75), transparent 58%);
+}
+.hero-copy { position: relative; z-index: 2; max-width: 1100px; }
+.hero h1 {
+  font-size: clamp(42px, 8.4vw, 132px);
+  margin: clamp(14px, 2vh, 26px) 0 0;
+  color: var(--paper);
+}
+.hero h1 em {
+  font-style: italic; text-transform: lowercase;
+  letter-spacing: .01em; color: var(--sand);
+}
+.hero-copy .lead { margin-top: clamp(16px, 2.4vh, 30px); }
+.hero-foot {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; gap: clamp(18px, 3vw, 40px);
+  margin-top: clamp(26px, 4vh, 46px); flex-wrap: wrap;
+}
+.scroll-hint { display: flex; align-items: center; gap: 12px; color: var(--dimmer); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; }
+.scroll-hint span { display: block; width: 46px; height: 1px; background: currentColor; overflow: hidden; position: relative; }
+.scroll-hint span::after {
+  content: ""; position: absolute; inset: 0; background: var(--red);
+  transform: translateX(-100%); animation: sweep 2.8s var(--ease) infinite;
+}
+@keyframes sweep { 40% { transform: translateX(0); } 100% { transform: translateX(100%); } }
+
+/* ─── Лента фактов ─────────────────────────────────────────────── */
+.facts {
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 16px 0; overflow: hidden; background: var(--coal);
+}
+.facts .fade {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.facts-row { display: flex; width: max-content; animation: run 78s linear infinite; }
+.facts-row span {
+  font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  white-space: nowrap; padding-right: 34px; color: var(--dim);
+}
+.facts-row i { font-style: normal; color: var(--red); padding: 0 6px; }
+.facts:hover .facts-row { animation-play-state: paused; }
+@keyframes run { to { transform: translateX(-50%); } }
+
+/* ─── Главы ────────────────────────────────────────────────────── */
+.chapter { position: relative; padding: var(--межблок) var(--pad); }
+.chapter-inner { max-width: var(--wide); margin: 0 auto; }
+
+.chapter-head { position: relative; margin-bottom: clamp(24px, 3vw, 44px); }
+.chapter-num {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300;
+  font-size: clamp(64px, 10vw, 148px); line-height: .74;
+  color: rgba(233, 224, 204, .085); display: block;
+  letter-spacing: .02em;
+}
+.chapter-head h2 { font-size: clamp(30px, 4.6vw, 64px); margin-top: -.12em; }
+.chapter-head .sub {
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--dimmer); margin-top: 12px;
+}
+.chapter-head .lead { margin-top: clamp(20px, 2.4vw, 30px); }
+.chapter-head .btn { margin-top: clamp(24px, 3vw, 36px); }
+
+/* ─── 01. Треки: таблица форматов и ящик с пластинками ─────────── */
+.tracks {
+  display: grid; gap: clamp(24px, 3vw, 52px);
+  grid-template-columns: minmax(300px, .86fr) minmax(0, 1.14fr);
+  align-items: start;
+}
+.track-list { list-style: none; margin: 0; padding: 0; }
+.track {
+  width: 100%; text-align: left; background: none; border: 0; color: inherit;
+  font: inherit; cursor: pointer;
+  display: grid; grid-template-columns: 30px minmax(0, 1fr) minmax(0, 1.15fr);
+  align-items: baseline; gap: 0 20px;
+  padding: 19px 0; border-bottom: 1px solid var(--line);
+  transition: padding-left .45s var(--ease), border-color .45s ease;
+}
+.track-list li:first-child .track { border-top: 1px solid var(--line); }
+.track .n { font-size: 10px; font-weight: 700; letter-spacing: .18em; color: var(--dimmer); transition: color .4s ease; }
+.track .name {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300;
+  font-size: clamp(19px, 2vw, 27px); text-transform: uppercase;
+  letter-spacing: .07em; line-height: 1.05; transition: color .4s ease;
+}
+.track .about { font-size: 13px; line-height: 1.4; color: var(--dimmer); transition: color .4s ease; }
+.track[aria-selected="true"] { padding-left: 14px; border-color: rgba(198, 40, 39, .5); }
+.track[aria-selected="true"] .n { color: var(--red); }
+.track[aria-selected="true"] .name { color: var(--sand); }
+.track[aria-selected="true"] .about { color: var(--dim); }
+.crate-col { display: grid; }
+.track-cta { justify-self: start; margin-top: clamp(16px, 2.4vw, 34px); margin-left: 6.8%; }
+
+/* Ящик: конверты стоят внахлёст, выбранный поднимается,
+   соседи справа расступаются */
+.crate { position: relative; padding-bottom: 60%; margin-top: clamp(-46px, -3vw, -18px); }
+.sleeve {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: 63%; transform-origin: 50% 100%; will-change: transform;
+  transform:
+    translateX(calc((var(--i) - 2.5) * 6.6%))
+    translateY(calc(var(--i) * -4px + 22px))
+    rotate(calc(-3deg + var(--i) * 1.1deg));
+  z-index: var(--i);
+  transition: transform .8s var(--мягко), filter .6s ease;
+}
+.sleeve.after {
+  transform:
+    translateX(calc((var(--i) - 2.5) * 6.6% + 40px))
+    translateY(calc(var(--i) * -4px + 22px))
+    rotate(calc(-3deg + var(--i) * 1.1deg));
+}
+.sleeve.on {
+  transform:
+    translateX(calc((var(--i) - 2.5) * 6.6%))
+    translateY(calc(var(--i) * -4px - 52px))
+    rotate(1deg) scale(1.04);
+  z-index: 20;
+}
+.sleeve img { width: 100%; height: auto; filter: brightness(.78) saturate(.9); transition: filter .7s ease; }
+.sleeve.on img { filter: brightness(1.04) saturate(1); }
+.sleeve::after { /* тень, чтобы стопка читалась объёмной */
+  content: ""; position: absolute; inset: 6% 4% -2% 6%; z-index: -1;
+  background: radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, .75), transparent 70%);
+}
+/* наш логотип на месте затёртого сгенерированного «Презера».
+   Координаты — в долях кадра, вписаны в затёртый прямоугольник */
+.sleeve u {
+  position: absolute; left: 6%; top: 11%; width: 15%;
+  text-decoration: none; opacity: .92;
+}
+.sleeve u img { filter: none; }
+/* передняя стенка ящика */
+.crate::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 22%;
+  background: linear-gradient(0deg, var(--void) 30%, rgba(11, 10, 10, .84) 70%, transparent);
+  z-index: 15; pointer-events: none;
+}
+
+/* ─── 02. Пространство: схема и легенда ────────────────────────── */
+.plan-wrap {
+  display: grid; gap: clamp(30px, 4vw, 60px);
+  grid-template-columns: minmax(300px, .92fr) minmax(0, 1.08fr);
+  align-items: center;
+}
+.plan { margin: 0; }
+/* подписи считаются в процентах от самого кадра, а не от фигуры с подписью */
+.plan-canvas { position: relative; }
+.plan-canvas > img { width: 100%; height: auto; }
+.plan figcaption {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--dimmer); margin-top: 10px;
+}
+/* подписи к зонам: свои, с настоящими цифрами */
+.pin { position: absolute; transform: translate(-50%, -50%); pointer-events: none; }
+.pin i {
+  display: block; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--red); box-shadow: 0 0 0 5px rgba(198, 40, 39, .16);
+  animation: pulse 3.4s ease-in-out infinite;
+}
+.pin span {
+  position: absolute; left: 18px; top: -8px; white-space: nowrap;
+  font-size: 10px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase;
+  color: var(--bone); text-shadow: 0 2px 10px rgba(0, 0, 0, .9);
+}
+.pin span b { display: block; font-weight: 400; letter-spacing: .1em; color: var(--dim); margin-top: 3px; }
+.pin.left span { left: auto; right: 18px; text-align: right; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 11px rgba(198, 40, 39, 0); } }
+
+/* Площади вынесены в отдельную колонку и набраны крупно: цифры —
+   главный аргумент площадки, они должны читаться первыми */
+.zones { list-style: none; margin: 0; padding: 0; }
+.zone {
+  display: grid; grid-template-columns: minmax(118px, auto) 1fr;
+  align-items: baseline; gap: 4px 26px;
+  padding: 18px 0; border-bottom: 1px solid var(--line);
+  transition: padding-left .4s var(--ease), border-color .4s ease;
+}
+.zone:first-child { border-top: 1px solid var(--line); }
+.zone:hover { padding-left: 12px; border-color: rgba(198, 40, 39, .45); }
+.zone em {
+  grid-row: 1 / 3; align-self: center; text-align: right;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: normal; font-weight: 300;
+  font-size: clamp(36px, 4.4vw, 62px); line-height: .9; color: var(--sand); white-space: nowrap;
+}
+.zone em u { text-decoration: none; font: inherit; }
+.zone em i { font-style: normal; font-size: .34em; letter-spacing: .06em; color: var(--dimmer); margin-left: 5px; }
+.zone b { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.zone span { grid-column: 2; font-size: 13px; color: var(--dimmer); }
+
+/* ─── 03. История: тёмно-синяя глава ───────────────────────────── */
+.history { background: var(--navy); }
+.history-grid {
+  display: grid; gap: clamp(30px, 4vw, 64px);
+  grid-template-columns: minmax(280px, .8fr) minmax(0, 1.2fr);
+  align-items: center;
+}
+.history-grid p + p { margin-top: 16px; }
+.history figure { margin: 0; position: relative; }
+.history figure img, .history figure video { width: 100%; height: auto; filter: brightness(.86) saturate(.9); }
+.history figure .stamp { filter: none; }
+.history .stamp {
+  position: absolute; right: 18px; top: 18px; width: clamp(54px, 6vw, 78px); opacity: .8;
+}
+
+/* ─── Честный блок про отзывы ──────────────────────────────────── */
+.honest {
+  max-width: var(--wide); margin: 0 auto;
+  display: flex; gap: clamp(20px, 3vw, 40px); align-items: flex-start;
+  background: var(--coal); border: 1px solid var(--line);
+  padding: clamp(26px, 3.4vw, 46px);
+}
+.honest > img { width: clamp(48px, 5vw, 72px); flex: none; opacity: .8; }
+.honest h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: clamp(22px, 2.4vw, 32px); text-transform: uppercase; letter-spacing: .07em; }
+.honest p { margin-top: 12px; color: var(--dim); max-width: 60ch; font-size: 15px; }
+
+/* ─── 04. Контакт ──────────────────────────────────────────────── */
+.contact { background: var(--coal); }
+.contact h2 em { font-style: italic; text-transform: lowercase; color: var(--sand); letter-spacing: .01em; }
+
+/* Конструктор заявки: формат и масштаб выбираются касанием,
+   печатать нужно только контакт */
+.build { display: grid; gap: 0; }
+.step { margin-top: clamp(22px, 2.6vw, 36px); }
+.step:first-child { margin-top: 0; }
+.step > b {
+  display: block; font-size: 9px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--dimmer); margin-bottom: 15px;
+}
+.step > b em { font-style: normal; color: var(--red); margin-right: 10px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  font: inherit; font-size: 13px; letter-spacing: .03em; color: inherit;
+  border: 1px solid var(--line); border-radius: 999px; padding: 11px 20px;
+  background: none; cursor: pointer;
+  transition: border-color .35s ease, background .35s ease, color .35s ease;
+}
+.chip:hover { border-color: rgba(226, 211, 175, .5); }
+.chip[aria-pressed="true"] { background: var(--bordo); border-color: var(--bordo); color: var(--paper); }
+
+.step-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; }
+.step-fields label { display: grid; gap: 9px; }
+.step-fields span { font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--dimmer); }
+.step-fields input {
+  background: none; border: 0; border-bottom: 1px solid var(--line);
+  color: var(--bone); font: inherit; font-size: 17px; padding: 10px 0;
+  transition: border-color .3s ease;
+}
+.step-fields input::placeholder { color: rgba(233, 224, 204, .22); }
+.step-fields input:focus { outline: none; border-color: var(--red); }
+.step-fields input.err { border-color: var(--red); }
+
+.build-end {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  margin-top: clamp(24px, 3vw, 40px); padding-top: 24px; border-top: 1px solid var(--line);
+}
+.build-end p { font-size: 15px; color: var(--dim); flex: 1 1 280px; }
+.build-end p b { color: var(--sand); font-weight: 400; }
+.form-note { font-size: 12px; color: var(--dimmer); margin-top: 16px; }
+
+.facts-list {
+  display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: clamp(26px, 3vw, 40px);
+}
+.facts-list div { background: var(--coal); padding: 18px 20px; display: grid; gap: 6px; }
+.facts-list b { font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--red); }
+.facts-list span { font-size: 15px; color: var(--bone); }
+.form-done { display: grid; gap: 14px; justify-items: start; }
+.form-done b { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: clamp(26px, 3vw, 40px); text-transform: uppercase; letter-spacing: .07em; }
+.form-done p { color: var(--dim); }
+
+/* ─── Подвал: призыв во весь низ ───────────────────────────────── */
+/* Никаких колонок с подписями: одна огромная ссылка, много воздуха
+   и единственная тонкая строка внизу */
+.foot {
+  background: var(--bordo); color: var(--paper);
+  min-height: min(78vh, 660px);
+  padding: clamp(30px, 4vw, 54px) var(--pad) clamp(22px, 2.6vw, 34px);
+  display: grid; grid-template-rows: auto 1fr auto; gap: clamp(24px, 3vw, 40px);
+}
+.foot-top {
+  display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  font-size: 11px; letter-spacing: .17em; text-transform: uppercase;
+  color: rgba(251, 243, 220, .6);
+}
+.foot-call {
+  align-self: end; display: block; color: var(--paper);
+  font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300;
+  font-size: clamp(54px, 13.5vw, 210px); line-height: .84;
+  letter-spacing: .01em; text-transform: uppercase;
+}
+.foot-call i {
+  font-style: normal; font-size: .34em; vertical-align: .42em;
+  display: inline-block; margin-left: .1em;
+  transition: transform .55s cubic-bezier(.16, .84, .24, 1);
+}
+.foot-call:hover i { transform: translate(.18em, -.18em); }
+.foot-call u { text-decoration: none; display: inline-block; position: relative; }
+.foot-call u::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: .1em; height: 2px;
+  background: currentColor; transform: scaleX(0); transform-origin: right;
+  transition: transform .7s var(--ease);
+}
+.foot-call:hover u::after { transform: scaleX(1); transform-origin: left; }
+
+.foot-low { border-top: 1px solid rgba(251, 243, 220, .2); padding-top: 18px; }
+.foot-line {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 0;
+  font-size: 11px; letter-spacing: .17em; text-transform: uppercase;
+  color: rgba(251, 243, 220, .6);
+}
+.foot-line > * { padding-right: 22px; }
+.foot-line a { position: relative; }
+.foot-line a::after {
+  content: ""; position: absolute; left: 0; right: 22px; bottom: -5px; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: right;
+  transition: transform .5s var(--ease);
+}
+.foot-line a:hover::after { transform: scaleX(1); transform-origin: left; }
+.foot-line .year { margin-left: auto; padding-right: 0; }
+
+/* ─── Адаптив ──────────────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .plan-wrap, .history-grid, .contact-grid, .tracks { grid-template-columns: 1fr; }
+  .crate { order: -1; padding-bottom: 62%; }
+  .sleeve { width: 58%; }
+  .plan { max-width: 720px; }
+  .history figure { order: -1; }
+}
+
+@media (max-width: 860px) {
+  .bar nav, .sound { display: none !important; }
+  .burger { display: block; }
+  .needle { display: none; }
+  .hero { min-height: 92svh; }
+  .pin span { font-size: 9px; letter-spacing: .12em; }
+}
+
+@media (max-width: 560px) {
+  .hero-video { object-position: 56% 44%; }
+  .track { grid-template-columns: 26px 1fr; gap: 0 14px; }
+  .track .about { grid-column: 2; margin-top: 6px; }
+  .sleeve { width: 66%; }
+  /* в шапке остаётся логотип, компактная кнопка и бургер */
+  .bar { gap: 12px; padding: 12px var(--pad); }
+  .bar > .btn { padding: 11px 15px; font-size: 10px; letter-spacing: .12em; gap: 8px; }
+  .records { grid-template-columns: 1fr; }
+  .pin span b { display: none; }
+}
+
+/* ─── Меньше движения ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .facts-row { animation: none; }
+  .hero-video { display: none; }
+}
