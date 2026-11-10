@@ -1,7 +1,5 @@
 /* Фрезер — «Пластинка», тёмная редакция */
 
-// TODO: подставить реальный чат площадки, когда заказчик пришлёт ник
-const TELEGRAM_URL = '';
 
 const тихо = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -236,7 +234,7 @@ const щелчокИглы = (() => {
     if (menu.hidden) return;
     if (e.key === 'Escape') { e.preventDefault(); close(true); }
     if (e.key === 'Tab') {
-      const items = [trigger, ...menu.querySelectorAll('a')];
+      const items = [trigger, ...menu.querySelectorAll('a, summary')].filter(el => el.getClientRects().length > 0);
       const index = items.indexOf(document.activeElement);
       e.preventDefault();
       items[(index + (e.shiftKey ? -1 : 1) + items.length) % items.length].focus();
@@ -312,6 +310,7 @@ const щелчокИглы = (() => {
       `Имя: ${form.elements.name.value.trim()}`,
       `Контакт: ${form.elements.contact.value.trim()}`
     ].join('\n');
+    result.querySelector('[data-send-whatsapp]').href = `https://wa.me/79163011011?text=${encodeURIComponent(result.querySelector('textarea').value)}`;
     form.hidden = true;
     result.hidden = false;
     result.querySelector('h3').focus();

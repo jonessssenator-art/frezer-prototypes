@@ -1,0 +1,110 @@
+[
+  {
+    "asset": "hall-wide",
+    "source_file": "4 Сцена.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 163294
+  },
+  {
+    "asset": "stage",
+    "source_file": "1 Сцена.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 89028
+  },
+  {
+    "asset": "hall-reverse",
+    "source_file": "2 Сцена.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 203282
+  },
+  {
+    "asset": "welcome",
+    "source_file": "4 Холл.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 320664
+  },
+  {
+    "asset": "welcome-window",
+    "source_file": "10 Холл.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 290392
+  },
+  {
+    "asset": "welcome-lounge",
+    "source_file": "15 Холл (1).jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 252100
+  },
+  {
+    "asset": "upper",
+    "source_file": "3 Второй этаж.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 373726
+  },
+  {
+    "asset": "upper-lounge",
+    "source_file": "10 Второй этаж.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 232678
+  },
+  {
+    "asset": "exterior",
+    "source_file": "1 Экстерьер.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 406442
+  },
+  {
+    "asset": "entrance",
+    "source_file": "12 Экстерьер.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 326626
+  },
+  {
+    "asset": "terrace",
+    "source_file": "25 Террассы.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 544864
+  },
+  {
+    "asset": "terrace-view",
+    "source_file": "1 Террассы.jpg",
+    "source_album": "https://artamonov.gallery.photo/gallery/frezer-hall/",
+    "bytes": 401516
+  },
+  {
+    "asset": "brusnika-hall",
+    "source_file": "EVS_0245.JPG",
+    "source_album": "https://evsphoto.ru/disk/28-10-2026-brusnika-hbqbkp",
+    "bytes": 343482
+  },
+  {
+    "asset": "brusnika-stage",
+    "source_file": "EVS_1087 (1).JPG",
+    "source_album": "https://evsphoto.ru/disk/28-10-2026-brusnika-hbqbkp",
+    "bytes": 162940
+  },
+  {
+    "asset": "brusnika-talk",
+    "source_file": "EVS_1537.JPG",
+    "source_album": "https://evsphoto.ru/disk/28-10-2026-brusnika-hbqbkp",
+    "bytes": 154374
+  },
+  {
+    "asset": "brusnika-welcome",
+    "source_file": "EVS_0016.JPG",
+    "source_album": "https://evsphoto.ru/disk/28-10-2026-brusnika-hbqbkp",
+    "bytes": 499720
+  },
+  {
+    "asset": "brusnika-guests",
+    "source_file": "EVS_1034.JPG",
+    "source_album": "https://evsphoto.ru/disk/28-10-2026-brusnika-hbqbkp",
+    "bytes": 399280
+  },
+  {
+    "asset": "brusnika-catering",
+    "source_file": "EVS_0098.JPG",
+    "source_album": "https://evsphoto.ru/disk/28-10-2026-brusnika-hbqbkp",
+    "bytes": 465274
+  }
+]

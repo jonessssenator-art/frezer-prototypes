@@ -6,11 +6,13 @@
 <title>Фрезер - пространство для мероприятий в Москве</title>
 <meta name="description" content="Дом культуры завода «Фрезер» в Москве: 1575 м² под событие любого масштаба, до 1000 гостей, потолки 10 метров, своя кухня.">
 <meta name="theme-color" content="#0B0A0A">
+<link rel="icon" href="shared/brand/logo-red-plain.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=polish-2">
 <link rel="stylesheet" href="footer-variants.css">
+<link rel="stylesheet" href="updates.css?v=20261110">
 </head>
 <body>
 
@@ -21,7 +23,8 @@
   <nav aria-label="Разделы">
     <a href="#formaty"><b>Форматы</b></a>
     <a href="#prostranstvo"><b>Пространство</b></a>
-    <a href="#istoriya"><b>История</b></a>
+    <details class="about-nav"><summary>О нас</summary><div><a href="#o-nas">О площадке</a><a href="#istoriya">История</a></div></details>
+    <a href="#galereya"><b>Галерея</b></a>
     <a href="#zayavka"><b>Бронирование</b></a>
   </nav>
   <button class="sound" data-sound aria-pressed="true" aria-label="Щелчок иглы при наведении на форматы" hidden>
@@ -36,7 +39,8 @@
 <div class="menu" id="menu" hidden>
   <a href="#formaty"><b>Форматы</b></a>
   <a href="#prostranstvo"><b>Пространство</b></a>
-  <a href="#istoriya"><b>История</b></a>
+  <details class="about-nav"><summary>О нас</summary><div><a href="#o-nas">О площадке</a><a href="#istoriya">История</a></div></details>
+    <a href="#galereya"><b>Галерея</b></a>
   <a href="#zayavka"><b>Бронирование</b></a>
 </div>
 
@@ -59,7 +63,11 @@
     </div>
   </section>
 
-  <ul class="venue-facts" aria-label="О площадке"><li>1575 м² внутри</li><li>До 1000 гостей</li><li>Потолки 10 метров</li><li>Своя кухня</li><li>Без ограничений по шуму</li><li>Заезд автомобиля в зал</li><li>Гардероб на 1000 мест</li><li>8 экранов</li></ul>
+  <section class="venue-overview chapter" id="o-nas" aria-labelledby="overview-title"><div class="chapter-inner">
+    <div class="chapter-head"><h2 class="display" id="overview-title">Пространство<br>в цифрах</h2><p class="lead">Отдельно стоящий Дом культуры завода «Фрезер». Всё необходимое для вашего события - на одной площадке.</p></div>
+    <dl class="venue-numbers"><div><dt>Основной зал</dt><dd>633<span>м²</span></dd></div><div><dt>Велком-зона</dt><dd>535<span>м²</span></dd></div><div><dt>Второй этаж</dt><dd>407<span>м²</span></dd></div><div><dt>Своя территория</dt><dd>1500<span>м²</span></dd></div><div><dt>VIP-ложа на втором этаже</dt><dd>300<span>м²</span></dd></div><div><dt>Сцена</dt><dd>55<span>м²</span></dd></div><div><dt>Высота потолка в зале</dt><dd>10<span>м</span></dd></div><div><dt>Бесплатная парковка</dt><dd>20<span>мест</span></dd></div><div><dt>В зале и велком-зоне</dt><dd>5 + 3<span>экрана</span></dd></div><div><dt>Гримёрные</dt><dd>4<span></span></dd></div><div><dt>Гардероб</dt><dd>1000<span>мест</span></dd></div></dl>
+    <ul class="venue-features"><li>Своя кухня</li><li>Полное техническое оснащение</li><li>Без ограничений по шуму</li></ul>
+  </div></section>
 
   <!-- 01 / ФОРМАТЫ: пластинки в конвертах -->
   <section class="chapter" id="formaty">
@@ -128,6 +136,11 @@
           <a class="btn track-cta" href="#zayavka"><span>Обсудить формат</span></a>
         </div>
       </div>
+      <article class="event-story">
+        <button type="button" class="event-cover photo-trigger" data-gallery="event" data-photo="0" aria-label="Посмотреть фотографии презентации Брусники"><img src="shared/img/photos/brusnika-hall-960.webp" srcset="shared/img/photos/brusnika-hall-960.webp 960w, shared/img/photos/brusnika-hall-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Оформление зала для презентации Брусники" loading="lazy" width="1920" height="1280"><span>Смотреть фотографии</span></button>
+        <div class="event-copy"><h3>Презентация<br> «Брусники»</h3><p>Первое мероприятие во «Фрезере» - презентация застройщика премиального жилого комплекса.</p><p class="event-date">28 октября 2026</p><a class="text-link" href="https://evsphoto.ru/disk/28-10-2026-brusnika-hbqbkp" target="_blank" rel="noopener">Полный фотоотчёт</a></div>
+        <div class="event-previews"><button type="button" class="photo-trigger" data-gallery="event" data-photo="1" aria-label="Сцена во время презентации"><img src="shared/img/photos/brusnika-stage-960.webp" srcset="shared/img/photos/brusnika-stage-960.webp 960w, shared/img/photos/brusnika-stage-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Сцена во время презентации" loading="lazy" width="1920" height="1280"></button><button type="button" class="photo-trigger" data-gallery="event" data-photo="4" aria-label="Гости презентации"><img src="shared/img/photos/brusnika-guests-960.webp" srcset="shared/img/photos/brusnika-guests-960.webp 960w, shared/img/photos/brusnika-guests-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Гости презентации" loading="lazy" width="1920" height="1280"></button></div>
+      </article>
     </div>
   </section>
 
@@ -136,51 +149,14 @@
     <div class="chapter-inner">
       <div class="chapter-head reveal">
         <h2 class="display">Пространство</h2>
-        <p class="lead">Пять зон под одной крышей: зал, велком, второй этаж,
-          сцена и своя территория. Всё на одной площадке - гостей не нужно
-          никуда возить.</p>
+        <p class="lead">Масштабное пространство для уникальных событий. Площадка, в которой соединились архитектурная выразительность, современные технические решения и свобода творческого воплощения.</p>
       </div>
 
-      <div class="plan-wrap">
-        <ol class="zones reveal">
-          <li class="zone">
-            <em><u>633</u><i>м²</i></em>
-            <b>Основной зал</b>
-            <span>Сцена в торце, пять экранов, потолок в десять метров</span>
-          </li>
-          <li class="zone">
-            <em><u>535</u><i>м²</i></em>
-            <b>Велком-зона</b>
-            <span>Встреча гостей и фуршет, три экрана, гардероб на тысячу</span>
-          </li>
-          <li class="zone">
-            <em><u>407</u><i>м²</i></em>
-            <b>Второй этаж</b>
-            <span>Внутри - отдельная VIP-ложа на 300 м² с видом на зал</span>
-          </li>
-          <li class="zone">
-            <em><u>55</u><i>м²</i></em>
-            <b>Сцена</b>
-            <span>Четыре гримёрные рядом, за кулисами</span>
-          </li>
-          <li class="zone">
-            <em><u>1500</u><i>м²</i></em>
-            <b>Улица</b>
-            <span>Своя территория: церемония, фуршет, парковка на 20 мест</span>
-          </li>
-        </ol>
-
-        <figure class="plan reveal">
-          <div class="plan-canvas">
-            <img src="shared/img/plan-iso.webp"
-                 alt="Объёмная схема здания: зал с круглыми столами, сцена с занавесом, велком-зона и вход под навесом"
-                 width="1220" height="1031" loading="lazy">
-          </div>
-          <button class="btn plan-zoom" type="button" data-open-plan>Увеличить схему</button>
-        </figure>
-      </div>
+      <div class="spaces-grid"><button class="space-card" type="button" data-space="hall"><img src="shared/img/photos/hall-wide-960.webp" srcset="shared/img/photos/hall-wide-960.webp 960w, shared/img/photos/hall-wide-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Пустой основной зал и сцена" loading="lazy" width="1920" height="1280"><span class="space-copy"><span class="space-title">Основной зал<span>633 м²</span></span><span class="space-description">Сцена, пять экранов и потолок высотой 10 метров</span><span class="space-action">Смотреть фотографии</span></span></button><button class="space-card" type="button" data-space="welcome"><img src="shared/img/photos/welcome-960.webp" srcset="shared/img/photos/welcome-960.webp 960w, shared/img/photos/welcome-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Велком-зона без оформления" loading="lazy" width="1920" height="1280"><span class="space-copy"><span class="space-title">Велком-зона<span>535 м²</span></span><span class="space-description">Три экрана, встреча гостей и гардероб на 1000 мест</span><span class="space-action">Смотреть фотографии</span></span></button><button class="space-card" type="button" data-space="floor"><img src="shared/img/photos/upper-960.webp" srcset="shared/img/photos/upper-960.webp 960w, shared/img/photos/upper-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Пространство второго этажа" loading="lazy" width="1920" height="1280"><span class="space-copy"><span class="space-title">Второй этаж<span>407 м²</span></span><span class="space-description">VIP-ложа 300 м² с видом на основной зал</span><span class="space-action">Смотреть фотографии</span></span></button><button class="space-card" type="button" data-space="stage"><img src="shared/img/photos/stage-960.webp" srcset="shared/img/photos/stage-960.webp 960w, shared/img/photos/stage-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Сцена и основной экран" loading="lazy" width="1920" height="1280"><span class="space-copy"><span class="space-title">Сцена<span>55 м²</span></span><span class="space-description">Четыре гримёрные рядом, за кулисами</span><span class="space-action">Смотреть фотографии</span></span></button><button class="space-card" type="button" data-space="outside"><img src="shared/img/photos/exterior-960.webp" srcset="shared/img/photos/exterior-960.webp 960w, shared/img/photos/exterior-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Фасад и территория площадки" loading="lazy" width="1920" height="1280"><span class="space-copy"><span class="space-title">Своя территория<span>1500 м²</span></span><span class="space-description">Отдельный вход и бесплатная парковка на 20 мест</span><span class="space-action">Смотреть фотографии</span></span></button></div><div class="plan-link"><button class="btn" type="button" data-open-plan>Посмотреть схему всей площадки</button></div>
     </div>
   </section>
+
+  <section class="chapter gallery-section" id="galereya"><div class="chapter-inner"><div class="chapter-head"><h2 class="display">Галерея</h2><p class="lead">Площадка без декораций: основной зал, велком-зона, второй этаж и террасы. Посмотрите, каким будет пространство до вашего события.</p></div><div class="gallery-filters" role="group" aria-label="Фотографии по зонам"><button class="chip" type="button" data-filter="all" aria-pressed="true">Все пространства</button><button class="chip" type="button" data-filter="hall" aria-pressed="false">Основной зал</button><button class="chip" type="button" data-filter="welcome" aria-pressed="false">Велком-зона</button><button class="chip" type="button" data-filter="floor" aria-pressed="false">Второй этаж</button><button class="chip" type="button" data-filter="outside" aria-pressed="false">Территория</button></div><div class="gallery-grid"><button type="button" class="photo-trigger" data-gallery="venue" data-category="hall" data-photo="0" aria-label="Увеличить: Основной зал"><img src="shared/img/photos/hall-wide-960.webp" srcset="shared/img/photos/hall-wide-960.webp 960w, shared/img/photos/hall-wide-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Основной зал" loading="lazy" width="1920" height="1280"><span>Основной зал</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="welcome" data-photo="1" aria-label="Увеличить: Велком-зона"><img src="shared/img/photos/welcome-960.webp" srcset="shared/img/photos/welcome-960.webp 960w, shared/img/photos/welcome-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Велком-зона" loading="lazy" width="1920" height="1280"><span>Велком-зона</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="hall" data-photo="2" aria-label="Увеличить: Основной зал, вид от сцены"><img src="shared/img/photos/hall-reverse-960.webp" srcset="shared/img/photos/hall-reverse-960.webp 960w, shared/img/photos/hall-reverse-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Основной зал, вид от сцены" loading="lazy" width="1920" height="1280"><span>Основной зал, вид от сцены</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="hall" data-photo="3" aria-label="Увеличить: Сцена и экран"><img src="shared/img/photos/stage-960.webp" srcset="shared/img/photos/stage-960.webp 960w, shared/img/photos/stage-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Сцена и экран" loading="lazy" width="1920" height="1280"><span>Сцена и экран</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="welcome" data-photo="4" aria-label="Увеличить: Входная группа"><img src="shared/img/photos/welcome-window-960.webp" srcset="shared/img/photos/welcome-window-960.webp 960w, shared/img/photos/welcome-window-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Входная группа" loading="lazy" width="1920" height="1280"><span>Входная группа</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="welcome" data-photo="5" aria-label="Увеличить: Зона отдыха в холле"><img src="shared/img/photos/welcome-lounge-960.webp" srcset="shared/img/photos/welcome-lounge-960.webp 960w, shared/img/photos/welcome-lounge-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Зона отдыха в холле" loading="lazy" width="1920" height="1280"><span>Зона отдыха в холле</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="floor" data-photo="6" aria-label="Увеличить: Второй этаж"><img src="shared/img/photos/upper-960.webp" srcset="shared/img/photos/upper-960.webp 960w, shared/img/photos/upper-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Второй этаж" loading="lazy" width="1920" height="1280"><span>Второй этаж</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="floor" data-photo="7" aria-label="Увеличить: Зона отдыха на втором этаже"><img src="shared/img/photos/upper-lounge-960.webp" srcset="shared/img/photos/upper-lounge-960.webp 960w, shared/img/photos/upper-lounge-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Зона отдыха на втором этаже" loading="lazy" width="1920" height="1280"><span>Зона отдыха на втором этаже</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="outside" data-photo="8" aria-label="Увеличить: Фасад Дома культуры"><img src="shared/img/photos/exterior-960.webp" srcset="shared/img/photos/exterior-960.webp 960w, shared/img/photos/exterior-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Фасад Дома культуры" loading="lazy" width="1920" height="1280"><span>Фасад Дома культуры</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="outside" data-photo="9" aria-label="Увеличить: Вход на площадку"><img src="shared/img/photos/entrance-960.webp" srcset="shared/img/photos/entrance-960.webp 960w, shared/img/photos/entrance-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Вход на площадку" loading="lazy" width="1920" height="1280"><span>Вход на площадку</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="outside" data-photo="10" aria-label="Увеличить: Крытая терраса"><img src="shared/img/photos/terrace-960.webp" srcset="shared/img/photos/terrace-960.webp 960w, shared/img/photos/terrace-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Крытая терраса" loading="lazy" width="1920" height="1280"><span>Крытая терраса</span></button><button type="button" class="photo-trigger" data-gallery="venue" data-category="outside" data-photo="11" aria-label="Увеличить: Терраса и двор"><img src="shared/img/photos/terrace-view-960.webp" srcset="shared/img/photos/terrace-view-960.webp 960w, shared/img/photos/terrace-view-1920.webp 1920w" sizes="(max-width: 600px) 100vw, 50vw" alt="Терраса и двор" loading="lazy" width="1920" height="1280"><span>Терраса и двор</span></button></div></div></section>
 
   <!-- 03 / СТОРОНА Б: история -->
   <section class="chapter history" id="istoriya">
@@ -191,22 +167,12 @@
 
       <div class="history-grid">
         <div class="reveal">
-          <p class="lead">Здание строили как Дом культуры завода «Фрезер» - место,
-            куда после смены приходили всем районом. Оно и сегодня стоит отдельно:
-            свой двор, свой кирпичный фасад, своя вывеска. Такое не спутать
-            с типовой коробкой.</p>
-          <p class="lead">Мы сохранили масштаб и добавили то, чего требует
-            современное событие: экраны, сцену, гримёрные, кухню полного цикла.
-            Дом культуры остался домом культуры. Просто у него сменился репертуар.</p>
+          <p class="lead">Построенный в советскую эпоху как часть социальной инфраструктуры одного из крупнейших московских промышленных предприятий, Дом культуры «Фрезер» был не просто клубным зданием, а важным общественным центром заводского района.</p>
+          <p class="lead">Здесь проходили концерты, праздничные мероприятия, встречи, творческие вечера и культурные программы для рабочих и жителей окрестных кварталов.</p>
         </div>
         <figure class="reveal">
-          <video muted loop playsinline preload="none" data-inview
-                 poster="shared/video/frezer-poster.jpg"
-                 aria-label="Полёт от фасада до зала, без звука">
-            <source src="shared/video/frezer-hero.webm" type="video/webm">
-            <source src="shared/video/frezer-hero.mp4" type="video/mp4">
-          </video>
-          <img class="stamp" src="shared/brand/logo-oval-red.svg" alt="" width="78" height="78">
+          <img src="shared/img/photos/history.webp" alt="Архивная фотография Дома культуры завода Фрезер" width="1280" height="772" loading="lazy"><figcaption>Дом культуры завода «Фрезер». Архивная фотография.</figcaption>
+
         </figure>
       </div>
     </div>
@@ -217,7 +183,7 @@
     <div class="chapter-inner">
       <div class="chapter-head reveal">
         <h2 class="display">Ваше событие</h2>
-        <p class="lead">Выберите формат, количество гостей и дату. Сохраните заявку, чтобы обсудить детали с площадкой.</p>
+        <p class="lead">Выберите формат, количество гостей и дату. Подготовьте заявку и отправьте её нам в WhatsApp.</p>
       </div>
 
       <form class="build reveal" novalidate>
@@ -256,21 +222,23 @@
           <p>Ваша заявка: <b data-summary>банкет / до 300 гостей</b></p>
           <button class="btn btn-red" type="submit"><span>Подготовить заявку</span></button>
         </div>
-        <p class="form-note">Онлайн-отправка пока не подключена. Вы сможете скопировать текст заявки.</p>
+        <p class="form-note">На следующем шаге можно проверить текст и открыть WhatsApp. Сообщение отправляется только вами.</p>
       </form>
 
       <div class="form-done" hidden>
         <h3 tabindex="-1">Заявка подготовлена</h3>
-        <p>Она ещё не отправлена. Скопируйте текст, чтобы передать его представителю площадки.</p>
+        <p>Проверьте текст и откройте WhatsApp, чтобы отправить его площадке.</p>
         <label for="request-text">Текст заявки</label>
         <textarea id="request-text" rows="7" readonly></textarea>
         <div class="form-actions">
-          <button class="btn btn-red" type="button" data-copy-request>Скопировать заявку</button>
+          <a class="btn btn-red" data-send-whatsapp href="https://wa.me/79163011011" target="_blank" rel="noopener">Открыть WhatsApp</a>
+          <button class="btn" type="button" data-copy-request>Скопировать заявку</button>
           <button class="btn" type="button" data-edit-request>Изменить данные</button>
         </div>
         <p data-copy-status role="status"></p>
       </div>
 
+      <div class="direct-contacts"><p>Удобнее обсудить лично?</p><a href="tel:+79163011011">+7 916 301-10-11</a><a class="btn" href="https://wa.me/79163011011" target="_blank" rel="noopener">Написать в WhatsApp</a><a class="btn" href="https://t.me/+79163011011" target="_blank" rel="noopener">Telegram</a></div>
       <div class="facts-list reveal">
         <div><b>Адрес</b><span>Москва, ул. 2-я Фрезерная, 3</span></div>
         <div><b>Парковка</b><span>Бесплатная, 20 мест на своей территории</span></div>
@@ -294,7 +262,9 @@
     <div class="foot-line">
       <span>2-я Фрезерная, 3</span>
       <a href="https://yandex.ru/maps/?text=Москва%2C%202-я%20Фрезерная%2C%203" target="_blank" rel="noopener">Открыть карту</a>
-      <span>Просмотр по записи</span>
+      <a href="tel:+79163011011">+7 916 301-10-11</a>
+      <a href="https://wa.me/79163011011" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://t.me/+79163011011" target="_blank" rel="noopener">Telegram</a>
       
       <span class="year">© 2026</span>
     </div>
@@ -305,7 +275,9 @@
   <form method="dialog"><button class="btn" type="submit">Закрыть</button></form>
   <img src="shared/img/plan-iso.webp" width="1220" height="1031" alt="Объёмная схема здания Фрезер">
 </dialog>
-<script src="script.js?v=polish-1"></script>
+<dialog class="photo-dialog" aria-labelledby="photo-title"><div class="photo-dialog-top"><h2 id="photo-title"></h2><form method="dialog"><button class="btn" type="submit" aria-label="Закрыть фотографии">Закрыть</button></form></div><p class="photo-description"></p><figure><img alt=""><figcaption></figcaption></figure><div class="photo-controls"><button class="btn" type="button" data-photo-prev aria-label="Предыдущая фотография">Назад</button><span data-photo-count role="status" aria-live="polite"></span><button class="btn" type="button" data-photo-next aria-label="Следующая фотография">Далее</button></div></dialog>
+<script src="script.js?v=20261110"></script>
+<script src="updates.js?v=20261110"></script>
 <script src="footer-variants.js?v=1"></script>
 </body>
 </html>
