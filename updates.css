@@ -80,6 +80,6 @@
 @media(max-width:600px) { .gallery-grid { grid-template-columns:1fr; } .event-previews { gap:12px; } .event-previews .photo-trigger { aspect-ratio:1.2; } }
 
 .event-story > * { min-width:0; }
-.venue-numbers > div { display:grid; grid-template-rows:auto 1fr; align-content:start; }
+.venue-numbers > div { display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:auto 1fr; align-content:start; justify-content:stretch; }
 .venue-numbers dd { grid-row:1; }
 .venue-numbers dt { grid-row:2; }
