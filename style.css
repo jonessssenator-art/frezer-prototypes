@@ -151,7 +151,7 @@ p { margin: 0; }
   position: relative; overflow: hidden;
   transition: color .4s var(--ease), border-color .4s var(--ease);
 }
-.btn span, 
+.btn span { position:relative; z-index:2; }
 
 .btn::before {
   content: ""; position: absolute; inset: 0; z-index: 1;
@@ -167,7 +167,6 @@ p { margin: 0; }
 
 /* круглая кнопка со стрелкой — повторяющийся элемент референса */
 
-a:hover .circle, .rec:hover 
 
 /* ─── Игла: тонкая шкала прокрутки слева ───────────────────────── */
 
@@ -218,7 +217,6 @@ a:hover .circle, .rec:hover
   white-space: nowrap; padding-right: 34px; color: var(--dim);
 }
 
-.facts:hover 
 
 
 /* ─── Главы ────────────────────────────────────────────────────── */
