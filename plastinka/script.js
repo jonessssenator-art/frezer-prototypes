@@ -5,47 +5,6 @@ const TELEGRAM_URL = '';
 
 const тихо = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ─── Рамка фокуса — только для клавиатуры ──────────────────────── */
-(() => {
-  const корень = document.documentElement;
-  корень.classList.add('js');
-
-  addEventListener('keydown', (e) => {
-    if (e.key === 'Tab' || e.key.startsWith('Arrow')) корень.classList.add('клавиатура');
-  });
-  addEventListener('pointerdown', () => корень.classList.remove('клавиатура'));
-
-  // после перезагрузки браузер возвращает фокус туда, где он был, —
-  // снимаем его, пока пользователь ничего не нажимал
-  const снять = () => {
-    const э = document.activeElement;
-    if (!корень.classList.contains('клавиатура') && э && э !== document.body) э.blur();
-  };
-  addEventListener('pageshow', снять);
-  снять();
-})();
-
-/* ─── Появление при скролле ─────────────────────────────────────── */
-(() => {
-  const цели = document.querySelectorAll('.reveal, .written');
-  if (тихо) { цели.forEach(э => э.classList.add('on')); return; }
-
-  const наблюдатель = new IntersectionObserver((записи) => {
-    записи.forEach((запись) => {
-      if (!запись.isIntersecting) return;
-      запись.target.classList.add('on');
-      наблюдатель.unobserve(запись.target);
-    });
-  }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
-
-  цели.forEach((э, i) => {
-    // соседи в одной сетке проявляются друг за другом
-    const шаг = э.closest('.records, .zones, .facts-list') ? (i % 6) * 80 : 0;
-    э.style.transitionDelay = `${шаг}ms`;
-    наблюдатель.observe(э);
-  });
-})();
-
 /* ─── Шапка: подложка появляется, когда ушли с первого экрана ───── */
 (() => {
   const шапка = document.querySelector('.bar');
@@ -53,62 +12,6 @@ const тихо = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const проверить = () => шапка.classList.toggle('stuck', window.scrollY > 40);
   проверить();
   addEventListener('scroll', проверить, { passive: true });
-})();
-
-/* ─── Игла: точка едет по шкале вместе с прокруткой ─────────────── */
-(() => {
-  const шкала = document.querySelector('.needle');
-  const точка = шкала && шкала.querySelector('b');
-  if (!точка || тихо) return;
-
-  let ждём = false;
-  const обновить = () => {
-    ждём = false;
-    const всего = document.documentElement.scrollHeight - innerHeight;
-    const доля = всего > 0 ? Math.min(1, Math.max(0, scrollY / всего)) : 0;
-    точка.style.top = `${доля * 100}%`;
-  };
-
-  обновить();
-  addEventListener('scroll', () => {
-    if (ждём) return;
-    ждём = true;
-    requestAnimationFrame(обновить);
-  }, { passive: true });
-  addEventListener('resize', обновить);
-})();
-
-/* ─── Счётчики площадей ─────────────────────────────────────────── */
-(() => {
-  const числа = document.querySelectorAll('[data-count]');
-  if (!числа.length) return;
-
-  const пробелы = (n) => n.toLocaleString('ru-RU');
-
-  if (тихо) {
-    числа.forEach(э => { э.textContent = пробелы(+э.dataset.count); });
-    return;
-  }
-
-  const наблюдатель = new IntersectionObserver((записи) => {
-    записи.forEach(({ isIntersecting, target }) => {
-      if (!isIntersecting) return;
-      наблюдатель.unobserve(target);
-
-      const цель = +target.dataset.count;
-      const длительность = 1200;
-      const старт = performance.now();
-
-      const шаг = (сейчас) => {
-        const t = Math.min(1, (сейчас - старт) / длительность);
-        target.textContent = пробелы(Math.round(цель * (1 - Math.pow(1 - t, 4))));
-        if (t < 1) requestAnimationFrame(шаг);
-      };
-      requestAnimationFrame(шаг);
-    });
-  }, { threshold: .6 });
-
-  числа.forEach(э => наблюдатель.observe(э));
 })();
 
 /* ─── Пластинка в герое: если автозапуск запрещён, остаётся кадр ── */
@@ -157,7 +60,7 @@ const щелчокИглы = (() => {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return () => {};
   тумблер.hidden = false;
 
-  let включён = localStorage.getItem('frezer-zvuk') !== 'off' && !тихо;
+  let включён = localStorage.getItem('frezer-zvuk') === 'on' && !тихо;
   let контекст = null, шумБуфер = null, последний = 0;
 
   const показать = () => {
@@ -261,13 +164,18 @@ const щелчокИглы = (() => {
   const выбрать = (i, сЗвуком) => {
     if (i === активный) return;
     активный = i;
-    строки.forEach((с, k) => с.setAttribute('aria-selected', String(k === i)));
+    строки.forEach((с, k) => с.setAttribute('aria-pressed', String(k === i)));
     конверты.forEach((к, k) => {
       к.classList.toggle('on', k === i);
       к.classList.toggle('after', k > i);   // соседи справа расступаются
     });
     if (сЗвуком) щелчокИглы();
   };
+
+  document.querySelector('.track-cta')?.addEventListener('click', () => {
+    const chips = document.querySelectorAll('.chips[data-group="формат"] .chip');
+    chips[активный]?.click();
+  });
 
   строки.forEach((строка, i) => {
     строка.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') выбрать(i, true); });
@@ -287,27 +195,54 @@ const щелчокИглы = (() => {
     e.preventDefault();
     scrollTo({ top: 0, behavior: тихо ? 'auto' : 'smooth' });
     history.replaceState(null, '', location.pathname + location.search);
-    бренд.blur();
+
   });
 
   if (location.hash === '#top') history.replaceState(null, '', location.pathname + location.search);
 })();
 
-/* ─── Мобильное меню ────────────────────────────────────────────── */
+/* Mobile navigation: keyboard stays inside the open menu. */
 (() => {
-  const кнопка = document.querySelector('.burger');
-  const меню = document.getElementById('menu');
-  if (!кнопка || !меню) return;
-
-  const переключить = (открыть) => {
-    кнопка.setAttribute('aria-expanded', String(открыть));
-    меню.hidden = !открыть;
-    document.body.style.overflow = открыть ? 'hidden' : '';
+  const trigger = document.querySelector('.burger');
+  const menu = document.getElementById('menu');
+  if (!trigger || !menu) return;
+  const background = () => [document.querySelector('main'), document.querySelector('footer')];
+  const headerOthers = [...document.querySelector('.bar').children].filter(el => el !== trigger);
+  const close = (restore = false) => {
+    menu.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-label', 'Открыть меню');
+    document.body.style.overflow = '';
+    [...background(), ...headerOthers].forEach(el => { if (el) el.inert = false; });
+    if (restore) trigger.focus();
   };
-
-  кнопка.addEventListener('click', () => переключить(меню.hidden));
-  меню.addEventListener('click', (e) => { if (e.target.closest('a')) переключить(false); });
-  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !меню.hidden) переключить(false); });
+  trigger.addEventListener('click', () => {
+    if (!menu.hidden) return close(true);
+    menu.hidden = false;
+    trigger.setAttribute('aria-expanded', 'true');
+    trigger.setAttribute('aria-label', 'Закрыть меню');
+    document.body.style.overflow = 'hidden';
+    [...background(), ...headerOthers].forEach(el => { if (el) el.inert = true; });
+    menu.querySelector('a').focus();
+  });
+  menu.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    close();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) { target.tabIndex = -1; target.focus({preventScroll:true}); }
+  });
+  addEventListener('keydown', e => {
+    if (menu.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); close(true); }
+    if (e.key === 'Tab') {
+      const items = [trigger, ...menu.querySelectorAll('a')];
+      const index = items.indexOf(document.activeElement);
+      e.preventDefault();
+      items[(index + (e.shiftKey ? -1 : 1) + items.length) % items.length].focus();
+    }
+  });
+  matchMedia('(min-width:861px)').addEventListener('change', e => { if (e.matches) close(); });
 })();
 
 /* ─── Конструктор заявки ────────────────────────────────────────── */
@@ -338,44 +273,76 @@ const щелчокИглы = (() => {
   собрать();
 })();
 
-/* ─── Отправка ──────────────────────────────────────────────────── */
+/* Prepare a request locally. No delivery is claimed until a real channel exists. */
 (() => {
-  const форма = document.querySelector('.build');
-  const готово = document.querySelector('.form-done');
-  if (!форма || !готово) return;
-
-  форма.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    let ошибка = false;
-    форма.querySelectorAll('input[required]').forEach((поле) => {
-      const пусто = !поле.value.trim();
-      поле.classList.toggle('err', пусто);
-      поле.setAttribute('aria-invalid', String(пусто));
-      if (пусто && !ошибка) { поле.focus(); ошибка = true; }
+  const form = document.querySelector('.build');
+  const result = document.querySelector('.form-done');
+  if (!form || !result) return;
+  const required = [...form.querySelectorAll('input[required]')];
+  required.forEach(input => {
+    const error = document.createElement('small');
+    error.id = `${input.name}-error`;
+    error.className = 'field-error';
+    error.hidden = true;
+    input.setAttribute('aria-describedby', error.id);
+    input.after(error);
+    input.addEventListener('input', () => {
+      if (input.value.trim()) { input.classList.remove('err'); input.removeAttribute('aria-invalid'); error.hidden = true; }
     });
-    if (ошибка) return;
-
-    // TODO: BACKEND — отправить на свой эндпоинт, который дёрнет Telegram Bot API
-    // sendMessage. Токен бота держать только на сервере, в браузере его быть не должно.
-    форма.hidden = true;
-    готово.hidden = false;
-    готово.querySelector('button').focus();
   });
-
-  готово.querySelector('[data-reset]').addEventListener('click', () => {
-    форма.reset();
-    форма.querySelectorAll('.err').forEach(п => п.classList.remove('err'));
-    готово.hidden = true;
-    форма.hidden = false;
-    форма.querySelector('input').focus();
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let firstError;
+    required.forEach(input => {
+      const empty = !input.value.trim();
+      const error = document.getElementById(`${input.name}-error`);
+      input.classList.toggle('err', empty);
+      input.setAttribute('aria-invalid', String(empty));
+      error.hidden = !empty;
+      error.textContent = input.name === 'name' ? 'Укажите ваше имя.' : 'Укажите телефон или ник в Telegram.';
+      if (empty && !firstError) firstError = input;
+    });
+    if (firstError) return firstError.focus();
+    const chosen = group => form.querySelector(`.chips[data-group="${group}"] [aria-pressed="true"]`).textContent.trim();
+    result.querySelector('textarea').value = [
+      'Заявка на мероприятие в «Фрезере»',
+      `Формат: ${chosen('формат')}`,
+      `Гостей: ${chosen('гости')}`,
+      `Дата: ${form.elements.date.value.trim() || 'Обсудим'}`,
+      `Имя: ${form.elements.name.value.trim()}`,
+      `Контакт: ${form.elements.contact.value.trim()}`
+    ].join('\n');
+    form.hidden = true;
+    result.hidden = false;
+    result.querySelector('h3').focus();
+  });
+  result.querySelector('[data-edit-request]').addEventListener('click', () => {
+    result.hidden = true;
+    form.hidden = false;
+    result.querySelector('[data-copy-status]').textContent = '';
+    form.querySelector('input').focus();
+  });
+  result.querySelector('[data-copy-request]').addEventListener('click', async () => {
+    const text = result.querySelector('textarea');
+    const status = result.querySelector('[data-copy-status]');
+    try {
+      await navigator.clipboard.writeText(text.value);
+      status.textContent = 'Текст скопирован. Заявка ещё не отправлена.';
+    } catch {
+      text.focus(); text.select();
+      status.textContent = 'Выделили текст. Скопируйте его через меню браузера.';
+    }
   });
 })();
 
-/* ─── Ссылка на Telegram ────────────────────────────────────────── */
+/* Native modal keeps focus and supports Escape without custom keyboard emulation. */
 (() => {
-  document.querySelectorAll('[data-tg]').forEach((a) => {
-    if (TELEGRAM_URL) { a.href = TELEGRAM_URL; a.target = '_blank'; a.rel = 'noopener'; }
-    else { a.href = '#zayavka'; a.title = 'Ник площадки в Telegram появится после запуска'; }
-  });
+ const dialog = document.querySelector('.plan-dialog');
+ const trigger = document.querySelector('[data-open-plan]');
+ if (!dialog || !trigger) return;
+ trigger.addEventListener('click', () => dialog.showModal());
+ dialog.addEventListener('click', e => {
+  const bounds = dialog.getBoundingClientRect();
+  if (e.target === dialog && (e.clientX < bounds.left || e.clientX > bounds.right || e.clientY < bounds.top || e.clientY > bounds.bottom)) dialog.close();
+ });
 })();
