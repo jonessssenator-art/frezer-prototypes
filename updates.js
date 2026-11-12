@@ -19,9 +19,24 @@ floor: { title:"Второй этаж · 407 м²", description:"VIP-ложа п
 stage: { title:"Сцена · 55 м²", description:"Четыре гримёрные рядом, за кулисами.", photos:[photo("photos/stage-1920.webp","Сцена без оформления"),photo("photos/hall-wide-1920.webp","Зал и сцена"),photo("photos/brusnika-stage-1920.webp","Сцена во время презентации")] },
 outside: { title:"Своя территория · 1500 м²", description:"Отдельно стоящее здание, крытые террасы и бесплатная парковка на 20 мест.", photos:[photo("photos/exterior-1920.webp","Фасад Дома культуры"),photo("photos/entrance-1920.webp","Вход на площадку"),photo("photos/terrace-1920.webp","Крытая терраса"),photo("photos/terrace-view-1920.webp","Терраса и двор")] }
   };
-  document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
+  const galleryItems = [...document.querySelectorAll('.gallery-grid [data-category]')];
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let filterAnimation;
+  const finishFilter = () => { filterAnimation?.progress(1); filterAnimation = null; };
+  reducedMotion.addEventListener('change', finishFilter);
+  window.addEventListener('resize', finishFilter);
+  document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', event => {
+    if (button.getAttribute('aria-pressed') === 'true') return;
+    finishFilter();
+    const animate = event.detail > 0 && !reducedMotion.matches && window.Flip && window.gsap;
+    const state = animate ? Flip.getState(galleryItems) : null;
     document.querySelectorAll('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    document.querySelectorAll('.gallery-grid [data-category]').forEach(item => { item.hidden = button.dataset.filter !== 'all' && item.dataset.category !== button.dataset.filter; });
+    galleryItems.forEach(item => { item.hidden = button.dataset.filter !== 'all' && item.dataset.category !== button.dataset.filter; });
+    if (state) filterAnimation = Flip.from(state, {
+      duration: 0.24, ease: 'power3.out', scale: true, prune: true,
+      onEnter: items => gsap.fromTo(items, {opacity: 0}, {opacity: 1, duration: 0.2, clearProps: 'opacity'})
+    });
+    window.frezerLenis?.resize();
   }));
   let active, index = 0;
   const render = () => {

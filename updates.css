@@ -83,3 +83,16 @@
 .venue-numbers > div { display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:auto 1fr; align-content:start; justify-content:stretch; }
 .venue-numbers dd { grid-row:1; }
 .venue-numbers dt { grid-row:2; }
+/* Align actual text boxes, including the native disclosure and sound control. */
+.bar nav { align-items:center; }
+.bar nav > a, .bar .about-nav summary { display:flex; align-items:center; min-height:48px; padding:0; line-height:20px; white-space:nowrap; }
+.bar nav > a b, .bar .about-nav summary { font-size:14px; font-weight:500; line-height:20px; }
+.about-nav summary { list-style:none; }
+.about-nav summary::-webkit-details-marker { display:none; }
+.about-nav summary::after { content:""; display:inline-block; width:7px; height:7px; margin-left:10px; border-right:1px solid currentColor; border-bottom:1px solid currentColor; transform:translateY(-2px) rotate(45deg); }
+.about-nav[open] summary::after { transform:translateY(2px) rotate(225deg); }
+.bar .sound { height:48px; padding:0 16px; font-size:14px; font-weight:500; line-height:20px; }
+.bar > .btn { height:48px; font-size:14px; line-height:20px; padding-top:0; padding-bottom:0; white-space:nowrap; }
+.bar nav > a::after { bottom:7px; }
+html.lenis { scroll-behavior:auto !important; }
+@media(max-width:560px) { .bar > .btn { height:44px; font-size:13px; } }

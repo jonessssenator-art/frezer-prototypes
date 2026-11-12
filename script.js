@@ -191,7 +191,8 @@ const щелчокИглы = (() => {
 
   бренд.addEventListener('click', (e) => {
     e.preventDefault();
-    scrollTo({ top: 0, behavior: тихо ? 'auto' : 'smooth' });
+    if (window.frezerLenis) window.frezerLenis.scrollTo(0);
+    else scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     history.replaceState(null, '', location.pathname + location.search);
 
   });

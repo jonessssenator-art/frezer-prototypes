@@ -12,7 +12,67 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=polish-2">
 <link rel="stylesheet" href="footer-variants.css">
-<link rel="stylesheet" href="updates.css?v=20261110">
+<link rel="stylesheet" href="shared/vendor/lenis-1.3.27.css">
+<link rel="stylesheet" href="updates.css?v=20261112-1">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": [
+    "LocalBusiness",
+    "EventVenue"
+  ],
+  "@id": "https://jonessssenator-art.github.io/frezer-prototypes/#venue",
+  "name": "Фрезер",
+  "alternateName": "Дом культуры завода «Фрезер»",
+  "url": "https://jonessssenator-art.github.io/frezer-prototypes/",
+  "description": "Пространство для мероприятий в Москве в отдельно стоящем Доме культуры завода «Фрезер». Общая площадь внутри - 1575 м², основной зал - 633 м², велком-зона - 535 м², второй этаж - 407 м². Своя кухня, сцена и парковка на 20 мест.",
+  "telephone": "+79163011011",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "ул. 2-я Фрезерная, 3",
+    "addressLocality": "Москва",
+    "addressCountry": "RU"
+  },
+  "image": [
+    "https://jonessssenator-art.github.io/frezer-prototypes/shared/img/photos/exterior-1920.webp",
+    "https://jonessssenator-art.github.io/frezer-prototypes/shared/img/photos/hall-wide-1920.webp"
+  ],
+  "logo": "https://jonessssenator-art.github.io/frezer-prototypes/shared/brand/logo-sand.svg",
+  "maximumAttendeeCapacity": 1000,
+  "amenityFeature": [
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Кухня на площадке",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Бесплатная парковка",
+      "value": true
+    }
+  ],
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Площадь внутренних помещений",
+      "value": 1575,
+      "unitText": "м²"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Площадь основного зала",
+      "value": 633,
+      "unitText": "м²"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Высота потолка основного зала",
+      "value": 10,
+      "unitText": "м"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -276,8 +336,12 @@
   <img src="shared/img/plan-iso.webp" width="1220" height="1031" alt="Объёмная схема здания Фрезер">
 </dialog>
 <dialog class="photo-dialog" aria-labelledby="photo-title"><div class="photo-dialog-top"><h2 id="photo-title"></h2><form method="dialog"><button class="btn" type="submit" aria-label="Закрыть фотографии">Закрыть</button></form></div><p class="photo-description"></p><figure><img alt=""><figcaption></figcaption></figure><div class="photo-controls"><button class="btn" type="button" data-photo-prev aria-label="Предыдущая фотография">Назад</button><span data-photo-count role="status" aria-live="polite"></span><button class="btn" type="button" data-photo-next aria-label="Следующая фотография">Далее</button></div></dialog>
-<script src="script.js?v=20261110"></script>
-<script src="updates.js?v=20261110"></script>
+<script src="shared/vendor/gsap-3.15.0.min.js"></script>
+<script src="shared/vendor/Flip-3.15.0.min.js"></script>
+<script src="shared/vendor/lenis-1.3.27.min.js"></script>
+<script src="motion.js?v=20261112-1"></script>
+<script src="script.js?v=20261112-1"></script>
+<script src="updates.js?v=20261112-1"></script>
 <script src="footer-variants.js?v=1"></script>
 </body>
 </html>
