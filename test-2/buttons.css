@@ -3,7 +3,7 @@
  position:relative;border:3px solid #b83e33;border-radius:100px;
  color:#fff0d7;background:linear-gradient(165deg,#d94b3d 0%,#bc3028 45%,#a2221e 100%);
  box-shadow:0 1px 0 1px #ed8a6e,0 3px 5px #26070055,inset 0 2px 2px 1px #f69577,inset 0 -2px 3px #681a18,inset 0 0 0 5px #bd4b3c,inset 0 7px 5px 2px #66151488,inset 0 -7px 5px 2px #ec7960;
- padding:18px 30px;min-height:59px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:500;line-height:1.25;text-shadow:0 1px #751b18;
+ padding:18px 30px;min-height:59px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:500;line-height:1.15;text-shadow:0 1px #751b18;
  transition:transform .14s cubic-bezier(.23,1,.32,1),filter .2s ease;
 }
 :is(.header-book,.action,.album-open,.visit-request):hover{background:linear-gradient(165deg,#d94b3d,#bc3028 45%,#a2221e);color:#fff0d7;filter:brightness(1.045)}
