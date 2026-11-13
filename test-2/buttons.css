@@ -1,0 +1,15 @@
+/* Rounded enamel body, adapted from the supplied button reference in brand red. */
+:is(.header-book,.action,.album-open,.visit-request){
+ position:relative;border:3px solid #b83e33;border-radius:100px;
+ color:#fff0d7;background:linear-gradient(165deg,#d94b3d 0%,#bc3028 45%,#a2221e 100%);
+ box-shadow:0 1px 0 1px #ed8a6e,0 3px 5px #26070055,inset 0 2px 2px 1px #f69577,inset 0 -2px 3px #681a18,inset 0 0 0 5px #bd4b3c,inset 0 7px 5px 2px #66151488,inset 0 -7px 5px 2px #ec7960;
+ padding:18px 30px;min-height:59px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:500;line-height:1.25;text-shadow:0 1px #751b18;
+ transition:transform .14s cubic-bezier(.23,1,.32,1),filter .2s ease;
+}
+:is(.header-book,.action,.album-open,.visit-request):hover{background:linear-gradient(165deg,#d94b3d,#bc3028 45%,#a2221e);color:#fff0d7;filter:brightness(1.045)}
+:is(.header-book,.action,.album-open,.visit-request):active{transform:translateY(2px);filter:brightness(.96)}
+:is(.header-book,.action,.album-open,.visit-request):focus-visible{outline:2px solid #e9e0cc;outline-offset:6px}
+.album-open{display:inline-flex;align-items:center;justify-content:center}
+@media(max-width:700px){.header-book{padding:14px 20px;min-height:49px;font-size:12px}.visit-request,.album-open,.action{padding:17px 25px;font-size:13px}}
+@media(prefers-reduced-motion:reduce){:is(.header-book,.action,.album-open,.visit-request){transition:none}}
+.album-open{position:absolute}
