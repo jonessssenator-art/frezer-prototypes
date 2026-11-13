@@ -107,3 +107,28 @@ html.lenis { scroll-behavior:auto !important; }
 .photo-dialog .photo-arrow:focus-visible{outline:2px solid currentColor;outline-offset:-3px}
 .photo-dialog .photo-controls{justify-content:center;min-height:32px}
 @media(max-width:600px){.photo-dialog .photo-stage{padding:0 38px}.photo-dialog .photo-arrow{width:36px;height:48px;padding:4px}.photo-dialog .photo-arrow svg{width:24px;height:24px}}
+/* Quieter surfaces: hierarchy through spacing and selected fills, not boxes. */
+.clean-surfaces .venue-numbers{gap:32px 40px}
+.clean-surfaces .venue-numbers>div,.clean-surfaces .venue-numbers>div:nth-child(-n+4){border:0;background:none;border-radius:0;padding:12px 0}
+.clean-surfaces .space-card{border:0;background:none;border-radius:0}
+.clean-surfaces .space-copy{padding:22px 0}
+.clean-surfaces .space-card:hover .space-action{color:var(--paper)}
+.clean-surfaces .btn{border-color:transparent;background:#e2d3af0d}
+.clean-surfaces .btn:hover{border-color:transparent;background:#e2d3af1c}
+.clean-surfaces .btn-red{background:var(--bordo)}
+.clean-surfaces .btn-red:hover{background:#8e292b}
+.clean-surfaces .sound,.clean-surfaces .sound:hover{border-color:transparent}
+.clean-surfaces .chip{border-color:transparent;background:none}
+.clean-surfaces .chip:hover{border-color:transparent;background:#e2d3af0d}
+.clean-surfaces .chip[aria-pressed="true"]{border-color:transparent;background:var(--bordo)}
+.clean-surfaces .track,.clean-surfaces .track-list li:first-child .track{border-color:transparent}
+.clean-surfaces .track[aria-pressed="true"]{background:#e2d3af0b;border-color:transparent}
+.clean-surfaces .track[aria-pressed="true"] .name{color:var(--paper)}
+.clean-surfaces .facts-list{border:0;background:none;gap:24px}
+.clean-surfaces .facts-list>div{background:none;padding:12px 0}
+.clean-surfaces .photo-dialog,.clean-surfaces .plan-dialog,.clean-surfaces .about-nav>div{border:0}
+.clean-surfaces .menu a,.clean-surfaces .menu .about-nav{border:0}
+.clean-surfaces .step-fields input{border:0;border-bottom:1px solid #e2d3af55;border-radius:0;background:transparent;padding:13px 0}
+.clean-surfaces .step-fields input.err{border-bottom-color:#ffaaa4}
+.clean-surfaces .form-done textarea{border-color:transparent;background:#ffffff06}
+@media(max-width:600px){.clean-surfaces .venue-numbers{gap:24px}.clean-surfaces .space-copy{padding:20px 0}.clean-surfaces .facts-list{gap:18px}}
