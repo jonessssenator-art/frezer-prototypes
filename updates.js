@@ -44,6 +44,7 @@ outside: { title:"Своя территория · 1500 м²", description:"От
     img.src = item.src; img.alt = item.alt; caption.textContent = item.alt;
     dialog.querySelector('[data-photo-count]').textContent = `${index + 1} / ${active.photos.length}`;
     controls.hidden = active.photos.length < 2;
+    prev.hidden = next.hidden = active.photos.length < 2;
   };
   const open = (key, initial = 0) => {
     active = galleries[key]; if (!active) return;

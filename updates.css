@@ -96,3 +96,14 @@
 .bar nav > a::after { bottom:7px; }
 html.lenis { scroll-behavior:auto !important; }
 @media(max-width:560px) { .bar > .btn { height:44px; font-size:13px; } }
+/* Gallery navigation stays beside the image at its vertical midpoint. */
+.photo-dialog .photo-stage{position:relative;padding:0 56px;min-height:88px;display:flex;align-items:center;justify-content:center}
+.photo-dialog .photo-stage>img{min-width:0}
+.photo-dialog .photo-arrow{position:absolute;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:48px;height:48px;padding:8px;border:0;border-radius:0;background:transparent;color:var(--bone);cursor:pointer}
+.photo-dialog .photo-arrow-prev{left:0}
+.photo-dialog .photo-arrow-next{right:0}
+.photo-dialog .photo-arrow svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.7}
+.photo-dialog .photo-arrow:hover{background:#ffffff12}
+.photo-dialog .photo-arrow:focus-visible{outline:2px solid currentColor;outline-offset:-3px}
+.photo-dialog .photo-controls{justify-content:center;min-height:32px}
+@media(max-width:600px){.photo-dialog .photo-stage{padding:0 38px}.photo-dialog .photo-arrow{width:36px;height:48px;padding:4px}.photo-dialog .photo-arrow svg{width:24px;height:24px}}
