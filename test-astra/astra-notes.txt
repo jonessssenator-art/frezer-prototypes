@@ -1,0 +1,11 @@
+Astra experiment, 14 November 2026. Baseline: local test-2.
+Free sources inspected through Astra MCP:
+https://astra-ui.com/animations/button
+https://astra-ui.com/animations/magnetic-button
+https://astra-ui.com/animations/cinematic-text
+Their React Native behavior is adapted to vanilla browser APIs; no Expo dependencies.
+Independent implementations inspired by public previews (Pro source not accessed):
+https://astra-ui.com/animations/music-toggle
+https://astra-ui.com/animations/column-parallax-gallery
+https://astra-ui.com/animations/noise
+Audio is an original synthetic demo chord, not the final soundtrack. No autoplay.

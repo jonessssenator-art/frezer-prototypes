@@ -1,0 +1,2 @@
+Background: built-in image_gen edit of shared/video/vinyl-poster.jpg, generated 2026-11-13. Actual size 1448 x 1086. Converted to JPEG quality 92. Vector logo and text are separate SVG layers in index.html.
+Prompt: Restore sharp product-photography details, preserve original 4:3 framing, camera and tonearm position; resolve concentric grooves and metal cartridge; leave red center label blank for vector brand overlay; no motion blur or sharpening halos.

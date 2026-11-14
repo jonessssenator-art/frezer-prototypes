@@ -1,0 +1,8 @@
+(()=>{const root=document.getElementById('discover');if(!root)return;
+
+const buttons=[...root.querySelectorAll('.area')],frame=root.querySelector('.space-photo'),caption=root.querySelector('#space-caption'),marker=root.querySelector('.area-marker'),areas=root.querySelector('.areas');let request=0;const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+function positionMarker(){const title=root.querySelector('.area[aria-pressed=true] .area-title');if(!title)return;const r=title.getBoundingClientRect(),parent=areas.getBoundingClientRect();areas.style.setProperty('--marker-y',(r.top-parent.top+r.height/2-marker.offsetHeight/2)+'px');}
+positionMarker();document.fonts.ready.then(()=>{marker.classList.add('no-motion');positionMarker();requestAnimationFrame(()=>marker.classList.remove('no-motion'));});new ResizeObserver(positionMarker).observe(areas);
+buttons.forEach(button=>button.addEventListener('click',async()=>{if(button.getAttribute('aria-pressed')==='true')return;const id=++request;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));positionMarker();const next=new Image();next.src='../shared/img/photos/'+button.dataset.roomPhoto+'-1920.webp';next.alt=button.dataset.caption;try{await next.decode();if(id!==request)return;frame.querySelectorAll('.photo-next').forEach(e=>e.remove());next.className='photo-next';frame.append(next);requestAnimationFrame(()=>requestAnimationFrame(()=>next.classList.add('visible')));caption.textContent=button.dataset.caption;setTimeout(()=>{if(id!==request)return;frame.querySelectorAll('img').forEach(e=>{if(e!==next)e.remove();});next.className='';next.id='space-image';},reduced.matches?0:330);}catch{caption.textContent='Не удалось загрузить фотографию. Выберите другой зал.';}}));
+
+})();
