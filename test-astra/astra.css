@@ -1,17 +1,20 @@
 /* Web adaptations of Astra button / magnetic-button / cinematic-text.
    Music, grain and gallery motion are independent implementations. */
 :is(.header-book,.action,.album-open,.visit-request){transition:transform 160ms var(--ease),filter 160ms ease}
-:is(.header-book,.action,.album-open,.visit-request):active{transform:translateY(2px) scale(.97)}
+:is(.header-book,.action,.album-open,.visit-request):active{transform:translateY(3px) scale(.95)}
 .magnetic-wrap{display:inline-block;padding:12px;margin:-12px;flex-shrink:0}
 .cinema-word{display:inline-block}
 .archive-photo{position:relative;overflow:hidden;align-self:stretch}
 .history .archive-photo>img{width:100%;height:100%;object-fit:cover;display:block}
-.film-grain{position:absolute;inset:0;width:100%;height:100%;opacity:.09;pointer-events:none;mix-blend-mode:screen}
+.film-grain{position:absolute;inset:0;width:100%;height:100%;opacity:.16;pointer-events:none;mix-blend-mode:screen}
 .hero .music-toggle{position:absolute;right:var(--pad);bottom:19px;z-index:4;display:flex;align-items:center;gap:11px;border:1px solid #e9e0cc55;border-radius:40px;padding:10px 17px;background:#171714bc;color:var(--cream);font:12px 'Golos Text',sans-serif;min-height:44px}
-.equalizer{display:flex;align-items:center;gap:3px;height:18px;width:27px}.equalizer i{display:block;width:3px;height:17px;background:currentColor;transform:scaleY(.2);border-radius:2px}
-.music-toggle[aria-pressed=true] .equalizer i{animation:equalize .8s ease-in-out infinite alternate}.equalizer i:nth-child(2){animation-delay:-.4s!important}.equalizer i:nth-child(3){animation-delay:-.2s!important}.equalizer i:nth-child(4){animation-delay:-.65s!important}.equalizer i:nth-child(5){animation-delay:-.1s!important}
+.equalizer{display:flex;align-items:center;gap:4px;height:24px;width:31px}.equalizer i{display:block;width:3px;height:23px;background:currentColor;transform:scaleY(.2);border-radius:2px}
+.music-toggle[aria-pressed=true] .equalizer i{animation:equalize .65s ease-in-out infinite alternate}.equalizer i:nth-child(2){animation-delay:-.4s!important}.equalizer i:nth-child(3){animation-delay:-.2s!important}.equalizer i:nth-child(4){animation-delay:-.65s!important}.equalizer i:nth-child(5){animation-delay:-.1s!important}
 @keyframes equalize{from{transform:scaleY(.22)}to{transform:scaleY(1)}}
 .music-status{position:absolute;right:var(--pad);bottom:70px;font-size:12px;z-index:4}
 @media(min-width:801px){.story-details{padding:52px 0;align-items:start}.story-details button:nth-child(2){margin-top:40px}}
 @media(max-width:700px){.hero .music-toggle{bottom:24px;padding:8px 12px;font-size:11px}.archive-photo{min-height:280px}.history .archive-photo>img{height:100%;min-height:280px}}
 @media(prefers-reduced-motion:reduce){.music-toggle .equalizer i{animation:none!important}.music-toggle[aria-pressed=true] .equalizer i:nth-child(2n){transform:scaleY(.8)}:is(.header-book,.action,.album-open,.visit-request):active{transform:none}.film-grain{opacity:.04}}
+
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){:is(.header-book,.action,.album-open,.visit-request):hover:not(:active){transform:translateY(-2px) scale(1.025)}}
+.music-toggle[aria-pressed=true]{background:#a5392b;color:#fff0d7;border-color:#d68064}
