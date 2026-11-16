@@ -1,0 +1,10 @@
+/* Balanced navigation with a fixed place for each header element. */
+.header{display:grid;grid-template-columns:minmax(180px,1fr) auto minmax(180px,1fr);column-gap:26px;height:112px;padding:0 var(--pad);align-items:center;background:linear-gradient(180deg,#0007,transparent);position:absolute}
+.header .brand{width:138px;justify-self:start;display:block}.header .brand img{width:100%}
+.header nav{display:flex;margin:0;justify-content:center;gap:clamp(18px,1.8vw,32px)}
+.header nav a{font-size:14px;line-height:1.2;padding:14px 0;color:#e9e0cc;transition:color .18s ease}
+.header nav a:after{bottom:7px}.header nav a:hover{color:#fff5dd}
+.header .header-book{justify-self:end;margin:0;padding:17px 25px;min-height:57px;font-size:13px}
+.inner .header{background:#171714}.header .menu-button{display:none}
+@media(max-width:1100px){.header{grid-template-columns:1fr auto 44px;gap:18px;height:96px}.header nav{display:none}.header .menu-button{display:block;margin:0}.header .brand{width:124px}.header .header-book{font-size:13px}}
+@media(max-width:700px){.header{height:88px;padding:0 22px;grid-template-columns:minmax(84px,1fr) auto 36px;gap:12px}.header .brand{width:100px;max-width:100%}.header .header-book{font-size:11px;padding:14px 17px;min-height:48px}.header .menu-button{width:36px;height:44px;padding:9px 6px}}

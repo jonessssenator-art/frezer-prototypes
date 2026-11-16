@@ -1,0 +1,8 @@
+/* Astra reference 687d26cd: icon geometry follows the font cap height. */
+.cap-icon{display:block;inline-size:.72em;block-size:.72em;inline-size:1cap;block-size:1cap;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.dialog-top button,#mobile-menu form button{display:inline-flex;align-items:center;gap:.65em;min-block-size:44px;padding-block:10px}
+.faq summary{align-items:center;position:relative;padding-inline-end:2em;min-block-size:44px}
+.faq summary::after{content:'';inline-size:.72em;block-size:.72em;inline-size:1cap;block-size:1cap;font:inherit;flex:none;background:linear-gradient(currentColor,currentColor) center/100% 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 100% no-repeat}
+.faq details[open] summary::after{content:'';background:linear-gradient(currentColor,currentColor) center/100% 1.5px no-repeat}
+
+.faq summary{display:flex;justify-content:space-between;gap:1em;list-style:none}.faq summary::-webkit-details-marker{display:none}
