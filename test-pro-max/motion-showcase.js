@@ -6,6 +6,7 @@
  // Preserve native line breaks and the heading's accessible text.
  const cinema=(heading)=>{const nodes=[],walker=document.createTreeWalker(heading,NodeFilter.SHOW_TEXT);while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(n=>{const frag=document.createDocumentFragment();n.textContent.split(/(\s+)/).forEach(w=>{if(!w.trim())frag.append(w);else{const s=document.createElement('span');s.className='motion-word';s.textContent=w;frag.append(s);}});n.replaceWith(frag);});heading.querySelectorAll('.motion-word').forEach((s,i)=>play(s,[{opacity:0,filter:'blur(18px)',transform:'translateY(32px) scale(1.04)'},{opacity:1,filter:'blur(0)',transform:'none'}],{duration:1400,delay:110*i,easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'}));};
  const hero=document.querySelector('.hero'),logo=document.querySelector('.hero-title'),vinyl=document.querySelector('.vinyl-scene');
+ if(logo)play(logo,[{clipPath:'inset(0 100% 0 0)',opacity:.25},{clipPath:'inset(0 0 0 0)',opacity:1}],{duration:1600,easing:'cubic-bezier(.23,1,.32,1)'});
  if(hero?.querySelector('h1'))cinema(hero.querySelector('h1'));
  const titles=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){titles.unobserve(e.target);cinema(e.target);}}),{threshold:.45});
  document.querySelectorAll('.overview .heading h2,.story-heading h2,.page-title h1,.story-page-title h1,.footer-invite h2').forEach(e=>titles.observe(e));
