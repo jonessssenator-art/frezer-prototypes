@@ -1,0 +1,7 @@
+.hero .music-toggle{position:absolute;right:var(--pad);bottom:19px;z-index:4;display:flex;align-items:center;gap:11px;border:1px solid #e9e0cc55;border-radius:40px;padding:10px 17px;background:#171714bc;color:var(--cream);font:12px 'Golos Text',sans-serif;min-height:44px;cursor:pointer}
+.equalizer{display:flex;align-items:center;gap:4px;height:24px;width:31px}.equalizer i{display:block;width:3px;height:23px;background:currentColor;transform:scaleY(.2);border-radius:2px}
+.music-toggle[aria-pressed=true] .equalizer i{animation:equalize .65s ease-in-out infinite alternate}.equalizer i:nth-child(2){animation-delay:-.4s}.equalizer i:nth-child(3){animation-delay:-.2s}.equalizer i:nth-child(4){animation-delay:-.65s}.equalizer i:nth-child(5){animation-delay:-.1s}
+@keyframes equalize{from{transform:scaleY(.22)}to{transform:scaleY(1)}}
+.music-status{position:absolute;right:var(--pad);bottom:70px;font-size:12px;z-index:4}.music-toggle[aria-pressed=true]{background:#a5392b;color:#fff0d7;border-color:#d68064}
+@media(max-width:700px){.hero .music-toggle{bottom:24px;padding:8px 12px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){.music-toggle .equalizer i{animation:none!important}.music-toggle[aria-pressed=true] .equalizer i:nth-child(2n){transform:scaleY(.8)}}

@@ -1,0 +1,9 @@
+// Original synthesized demo music, started only by an explicit click.
+(() => {
+ const music=document.querySelector('.music-toggle');let audio,master,loop,playing=false;
+ if(music){const status=document.querySelector('.music-status');let notes=[];
+ function chord(){if(!playing)return;const now=audio.currentTime;[130.81,164.81,196,246.94].forEach((hz,i)=>{const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.type='sine';oscillator.frequency.value=hz;gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(.035,now+.5+i*.08);gain.gain.exponentialRampToValueAtTime(.0001,now+3.9);oscillator.connect(gain).connect(master);oscillator.start(now);oscillator.stop(now+4);notes.push(oscillator);oscillator.onended=()=>{oscillator.disconnect();gain.disconnect();notes=notes.filter(n=>n!==oscillator);};});}
+ async function stop(){playing=false;clearInterval(loop);music.setAttribute('aria-pressed','false');music.setAttribute('aria-label','Включить демо-звук');notes.forEach(n=>{try{n.stop();}catch{}});notes=[];if(audio)await audio.suspend();}
+ music.addEventListener('click',async()=>{if(playing){await stop();return;}music.disabled=true;try{audio??=new(window.AudioContext||window.webkitAudioContext)();if(!master){master=audio.createGain();master.gain.value=.55;master.connect(audio.destination);}await audio.resume();playing=true;music.setAttribute('aria-pressed','true');music.setAttribute('aria-label','Выключить демо-звук');status.textContent='';chord();loop=setInterval(chord,4000);}catch{status.textContent='Не удалось включить звук. Попробуйте ещё раз.';await stop();}finally{music.disabled=false;}});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});new IntersectionObserver(es=>{if(!es[0].isIntersecting)stop();}).observe(music);addEventListener('pagehide',stop);}
+})();
